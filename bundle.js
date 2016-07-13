@@ -26902,10 +26902,6 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _store = __webpack_require__(241);
-	
-	var _store2 = _interopRequireDefault(_store);
-	
 	var _reactRedux = __webpack_require__(221);
 	
 	var _aside = __webpack_require__(246);
@@ -26915,8 +26911,10 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var stateToProps = function stateToProps(state) {
+	    console.log(state);
 	    return {
-	        hasProjects: state.projectReducer.projects.length ? true : false
+	        hasProjects: state.projectReducer.projects.length ? true : false,
+	        numberProjects: state.projectReducer.projects.length
 	    };
 	};
 	
@@ -26945,7 +26943,9 @@
 	        return _react2.default.createElement(
 	            'aside',
 	            null,
-	            'There are projects in the store: ',
+	            'There are ',
+	            this.props.numberProjects,
+	            ' projects in the store: ',
 	            this.props.hasProjects ? 'Yes' : 'No'
 	        );
 	    }
@@ -27093,8 +27093,6 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-	
 	var ProjectContainer = _react2.default.createClass({
 	    displayName: 'ProjectContainer',
 	
@@ -27104,11 +27102,9 @@
 	    },
 	
 	    render: function render() {
-	        var _console;
-	
-	        (_console = console).log.apply(_console, _toConsumableArray(this.props));
 	        return _react2.default.createElement(_projects2.default, this.props);
 	    }
+	
 	});
 	
 	var stateToProps = function stateToProps(state) {
@@ -27119,9 +27115,11 @@
 	
 	var dispatchToProps = function dispatchToProps() {
 	    return {
-	        onClick: function onClick(e) {
+	        openEditInput: function openEditInput(e) {
 	            console.log(e.target.getAttribute('data-id'), e.target.getAttribute('data-project'));
-	            _reactDom2.default.unmountComponentAtNode(document.getElementById('edit-container'));
+	            if (document.getElementById('edit-input')) {
+	                _reactDom2.default.unmountComponentAtNode(document.getElementById('edit-container'));
+	            }
 	            _reactDom2.default.render(_react2.default.createElement(_editProjectContainer2.default, { store: _store2.default, id: e.target.getAttribute('data-id'), project: e.target.getAttribute('data-project') }), document.getElementById('edit-container'));
 	        }
 	    };
@@ -27171,7 +27169,7 @@
 	                        " - ",
 	                        _react2.default.createElement(
 	                            "a",
-	                            { href: "#", "data-id": proj._id, "data-project": proj.project, onClick: _this.props.onClick },
+	                            { href: "#", "data-id": proj._id, "data-project": proj.project, onClick: _this.props.openEditInput },
 	                            "edit"
 	                        )
 	                    );
@@ -27207,11 +27205,19 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	var EditProjectContainer = _react2.default.createClass({
+	    displayName: 'EditProjectContainer',
+	
+	    render: function render() {
+	        return _react2.default.createElement(_editProject2.default, this.props);
+	    }
+	});
+	
 	var dispatchToProps = function dispatchToProps(dispatch) {
 	    return {
-	        onClick: function onClick(e) {
+	        updateInputField: function updateInputField(e) {
 	
-	            var editInput = document.getElementById('edit');
+	            var editInput = document.getElementById('edit-input');
 	            var id = editInput.getAttribute('data-id');
 	            var projectName = editInput.value;
 	
@@ -27230,7 +27236,7 @@
 	    };
 	};
 	
-	exports.default = (0, _reactRedux.connect)(dispatchToProps)(_editProject2.default);
+	exports.default = (0, _reactRedux.connect)(dispatchToProps)(EditProjectContainer);
 
 /***/ },
 /* 253 */
@@ -27269,18 +27275,18 @@
 													'div',
 													{ className: 'edit-project' },
 													_react2.default.createElement('input', {
-																	id: 'edit',
+																	id: 'edit-input',
 																	type: 'text',
 																	value: this.state.value,
 																	'data-id': this.props.id,
 																	onChange: this.handleChange
 													}),
-													_react2.default.createElement('input', { type: 'button', value: 'GO', onClick: this.props.onClick })
+													_react2.default.createElement('input', { type: 'button', value: 'GO', onClick: this.props.updateInputField })
 									);
 					},
 	
 					handleChange: function handleChange(e) {
-									console.log(e.target.value);
+									console.log(e.target.value, this.props);
 									this.setState({ value: e.target.value });
 					}
 	

@@ -1,11 +1,12 @@
 import React from 'react';
-import store from 'store';
 import { connect } from 'react-redux';
 import Aside from './aside';
 
 const stateToProps = function(state) {
+	console.log(state);
     return {
-        hasProjects: state.projectReducer.projects.length ? true : false
+        hasProjects: state.projectReducer.projects.length ? true : false,
+        numberProjects: state.projectReducer.projects.length
     }
 }
 

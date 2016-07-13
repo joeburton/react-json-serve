@@ -13,11 +13,11 @@ const ProjectContainer = React.createClass({
     },
 
     render: function() {
-        console.log(...this.props);
         return (
             <Projects {...this.props} />
         )
     }
+
 });
 
 const stateToProps = function(state) {
@@ -28,9 +28,11 @@ const stateToProps = function(state) {
 
 const dispatchToProps = function() {
     return {
-        onClick: (e) => {
+        openEditInput: (e) => {
             console.log(e.target.getAttribute('data-id'), e.target.getAttribute('data-project'));
-            ReactDOM.unmountComponentAtNode(document.getElementById('edit-container'));
+            if (document.getElementById('edit-input')) {
+                ReactDOM.unmountComponentAtNode(document.getElementById('edit-container'));    
+            }
             ReactDOM.render((
                 <EditProjectContainer store={store} id={e.target.getAttribute('data-id')} project={e.target.getAttribute('data-project')} />   
             ), document.getElementById('edit-container'));

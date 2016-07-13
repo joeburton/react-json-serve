@@ -3,11 +3,19 @@ import EditProject from './edit-project';
 import { connect } from 'react-redux';
 import store from 'store';
 
+const EditProjectContainer = React.createClass({
+    render: function() {
+        return (
+            <EditProject {...this.props} />
+        )
+    }
+});
+
 const dispatchToProps = function(dispatch) {
     return {
-        onClick: (e) => {
+        updateInputField: (e) => {
 
-            var editInput = document.getElementById('edit');
+            var editInput = document.getElementById('edit-input');
             var id = editInput.getAttribute ('data-id');
             var projectName = editInput.value;
 
@@ -26,6 +34,6 @@ const dispatchToProps = function(dispatch) {
     }
 }
 
-export default connect(dispatchToProps)(EditProject);
+export default connect(dispatchToProps)(EditProjectContainer);
 
 
