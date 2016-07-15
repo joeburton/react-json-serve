@@ -1,0 +1,28 @@
+body {
+    font-family: Verdana, Helvetica, Sans-serif;
+    font-size: 12px;
+}
+
+.main {
+    margin: 0 auto;
+    max-width: 600px;
+}
+
+.hidden {
+    display: none;
+}
+
+.main-nav li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+ul {
+    margin: 10px 0 20px 0;
+    padding: 0;
+}
+
+.projects-page ul li,
+.companies-page ul li {
+    list-style: none;
+}

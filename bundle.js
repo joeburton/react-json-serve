@@ -66,15 +66,15 @@
 	
 	var _app2 = _interopRequireDefault(_app);
 	
-	var _home = __webpack_require__(247);
+	var _home = __webpack_require__(249);
 	
 	var _home2 = _interopRequireDefault(_home);
 	
-	var _widgetContainer = __webpack_require__(248);
+	var _companiesContainer = __webpack_require__(250);
 	
-	var _widgetContainer2 = _interopRequireDefault(_widgetContainer);
+	var _companiesContainer2 = _interopRequireDefault(_companiesContainer);
 	
-	var _projectsContainer = __webpack_require__(250);
+	var _projectsContainer = __webpack_require__(270);
 	
 	var _projectsContainer2 = _interopRequireDefault(_projectsContainer);
 	
@@ -94,7 +94,7 @@
 	            { component: _app2.default },
 	            _react2.default.createElement(_reactRouter.Route, { path: '/', component: _home2.default }),
 	            _react2.default.createElement(_reactRouter.Route, { path: '/projects', component: _projectsContainer2.default }),
-	            _react2.default.createElement(_reactRouter.Route, { path: '/widgets', component: _widgetContainer2.default })
+	            _react2.default.createElement(_reactRouter.Route, { path: '/companies', component: _companiesContainer2.default })
 	        )
 	    )
 	), document.getElementById('root'));
@@ -26844,46 +26844,75 @@
 	
 	var _reactRouter = __webpack_require__(159);
 	
-	var _asideContainer = __webpack_require__(245);
+	var _editProjectContainer = __webpack_require__(245);
 	
-	var _asideContainer2 = _interopRequireDefault(_asideContainer);
+	var _editProjectContainer2 = _interopRequireDefault(_editProjectContainer);
+	
+	var _numberCompanies = __webpack_require__(247);
+	
+	var _numberCompanies2 = _interopRequireDefault(_numberCompanies);
+	
+	var _numberProjects = __webpack_require__(248);
+	
+	var _numberProjects2 = _interopRequireDefault(_numberProjects);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	exports.default = _react2.default.createClass({
 	    displayName: 'app',
 	
-	    render: function render() {
+	    render: function render(state) {
 	        return _react2.default.createElement(
 	            'div',
 	            { className: 'app' },
 	            _react2.default.createElement(
-	                'nav',
+	                'h1',
 	                null,
+	                'Company & Project Directory'
+	            ),
+	            _react2.default.createElement(
+	                'ul',
+	                { className: 'main-nav' },
 	                _react2.default.createElement(
-	                    _reactRouter.Link,
-	                    { to: '/' },
-	                    'Home'
+	                    'li',
+	                    null,
+	                    _react2.default.createElement(
+	                        _reactRouter.Link,
+	                        { to: '/' },
+	                        'Home'
+	                    )
 	                ),
-	                _react2.default.createElement('br', null),
 	                _react2.default.createElement(
-	                    _reactRouter.Link,
-	                    { to: '/widgets' },
-	                    'Widgets'
+	                    'li',
+	                    null,
+	                    _react2.default.createElement(
+	                        _reactRouter.Link,
+	                        { to: '/companies' },
+	                        'Companies'
+	                    ),
+	                    '(',
+	                    _react2.default.createElement(_numberCompanies2.default, null),
+	                    ')'
 	                ),
-	                _react2.default.createElement('br', null),
 	                _react2.default.createElement(
-	                    _reactRouter.Link,
-	                    { to: '/projects' },
-	                    'Users'
+	                    'li',
+	                    null,
+	                    _react2.default.createElement(
+	                        _reactRouter.Link,
+	                        { to: '/projects' },
+	                        'Projects'
+	                    ),
+	                    '(',
+	                    _react2.default.createElement(_numberProjects2.default, null),
+	                    ')'
 	                )
 	            ),
-	            _react2.default.createElement(_asideContainer2.default, null),
 	            _react2.default.createElement(
 	                'main',
 	                null,
 	                this.props.children
-	            )
+	            ),
+	            _react2.default.createElement(_editProjectContainer2.default, null)
 	        );
 	    }
 	});
@@ -26902,298 +26931,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactRedux = __webpack_require__(221);
-	
-	var _aside = __webpack_require__(246);
-	
-	var _aside2 = _interopRequireDefault(_aside);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var stateToProps = function stateToProps(state) {
-	    console.log(state);
-	    return {
-	        hasProjects: state.projectReducer.projects.length ? true : false,
-	        numberProjects: state.projectReducer.projects.length
-	    };
-	};
-	
-	exports.default = (0, _reactRedux.connect)(stateToProps)(_aside2.default);
-
-/***/ },
-/* 246 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = _react2.default.createClass({
-	    displayName: 'aside',
-	
-	    render: function render() {
-	        return _react2.default.createElement(
-	            'aside',
-	            null,
-	            'There are ',
-	            this.props.numberProjects,
-	            ' projects in the store: ',
-	            this.props.hasProjects ? 'Yes' : 'No'
-	        );
-	    }
-	});
-
-/***/ },
-/* 247 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = _react2.default.createClass({
-	    displayName: 'home',
-	
-	    render: function render() {
-	        return _react2.default.createElement(
-	            'h1',
-	            null,
-	            'App: Home'
-	        );
-	    }
-	});
-
-/***/ },
-/* 248 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _widgets = __webpack_require__(249);
-	
-	var _widgets2 = _interopRequireDefault(_widgets);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = _react2.default.createClass({
-	    displayName: 'widget-container',
-	
-	
-	    getInitialState: function getInitialState() {
-	        return {
-	            widgetData: ['one', 'two', 'three', 'four']
-	        };
-	    },
-	
-	    render: function render() {
-	        return _react2.default.createElement(_widgets2.default, { widgetData: this.state.widgetData });
-	    }
-	});
-
-/***/ },
-/* 249 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = _react2.default.createClass({
-	    displayName: "widgets",
-	
-	    render: function render() {
-	        return _react2.default.createElement(
-	            "div",
-	            { className: "widgets-page" },
-	            _react2.default.createElement(
-	                "h1",
-	                null,
-	                "App: Widgets"
-	            ),
-	            _react2.default.createElement(
-	                "ul",
-	                null,
-	                this.props.widgetData.map(function (value, i) {
-	                    return _react2.default.createElement(
-	                        "li",
-	                        { key: i },
-	                        value
-	                    );
-	                })
-	            )
-	        );
-	    }
-	});
-
-/***/ },
-/* 250 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactDom = __webpack_require__(158);
-	
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-	
-	var _projects = __webpack_require__(251);
-	
-	var _projects2 = _interopRequireDefault(_projects);
-	
-	var _editProjectContainer = __webpack_require__(252);
-	
-	var _editProjectContainer2 = _interopRequireDefault(_editProjectContainer);
-	
-	var _reactRedux = __webpack_require__(221);
-	
-	var _projects3 = __webpack_require__(254);
-	
-	var _store = __webpack_require__(241);
-	
-	var _store2 = _interopRequireDefault(_store);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var ProjectContainer = _react2.default.createClass({
-	    displayName: 'ProjectContainer',
-	
-	
-	    componentWillMount: function componentWillMount() {
-	        (0, _projects3.getProjects)();
-	    },
-	
-	    render: function render() {
-	        return _react2.default.createElement(_projects2.default, this.props);
-	    }
-	
-	});
-	
-	var stateToProps = function stateToProps(state) {
-	    return {
-	        projects: state.projectReducer.projects
-	    };
-	};
-	
-	var dispatchToProps = function dispatchToProps() {
-	    return {
-	        openEditInput: function openEditInput(e) {
-	            console.log(e.target.getAttribute('data-id'), e.target.getAttribute('data-project'));
-	            if (document.getElementById('edit-input')) {
-	                _reactDom2.default.unmountComponentAtNode(document.getElementById('edit-container'));
-	            }
-	            _reactDom2.default.render(_react2.default.createElement(_editProjectContainer2.default, { store: _store2.default, id: e.target.getAttribute('data-id'), project: e.target.getAttribute('data-project') }), document.getElementById('edit-container'));
-	        }
-	    };
-	};
-	
-	exports.default = (0, _reactRedux.connect)(stateToProps, dispatchToProps)(ProjectContainer);
-
-/***/ },
-/* 251 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = _react2.default.createClass({
-	    displayName: "projects",
-	
-	    render: function render() {
-	        var _this = this;
-	
-	        return _react2.default.createElement(
-	            "div",
-	            { className: "projects-page" },
-	            _react2.default.createElement(
-	                "h1",
-	                null,
-	                "Projects"
-	            ),
-	            _react2.default.createElement(
-	                "ul",
-	                null,
-	                this.props.projects.map(function (proj, i) {
-	                    // console.log(proj, i);
-	                    return _react2.default.createElement(
-	                        "li",
-	                        { key: i },
-	                        proj.project,
-	                        " - ",
-	                        _react2.default.createElement(
-	                            "a",
-	                            { href: "#", "data-id": proj._id, "data-project": proj.project, onClick: _this.props.openEditInput },
-	                            "edit"
-	                        )
-	                    );
-	                })
-	            )
-	        );
-	    }
-	});
-
-/***/ },
-/* 252 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _editProject = __webpack_require__(253);
+	var _editProject = __webpack_require__(246);
 	
 	var _editProject2 = _interopRequireDefault(_editProject);
 	
@@ -27215,11 +26953,8 @@
 	
 	var dispatchToProps = function dispatchToProps(dispatch) {
 	    return {
-	        updateInputField: function updateInputField(e) {
-	
-	            var editInput = document.getElementById('edit-input');
-	            var id = editInput.getAttribute('data-id');
-	            var projectName = editInput.value;
+	        disptachProjectUpdate: function disptachProjectUpdate(e, id, projectName) {
+	            e.preventDefault();
 	
 	            _store2.default.dispatch({
 	                type: 'EDIT_PROJECT',
@@ -27239,13 +26974,13 @@
 	exports.default = (0, _reactRedux.connect)(dispatchToProps)(EditProjectContainer);
 
 /***/ },
-/* 253 */
+/* 246 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-					value: true
+	    value: true
 	});
 	
 	var _react = __webpack_require__(1);
@@ -27255,45 +26990,237 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	exports.default = _react2.default.createClass({
-					displayName: 'edit-project',
+	    displayName: 'edit-project',
 	
 	
-					componentWillMount: function componentWillMount() {
-									console.log('componentWillMount');
-					},
+	    getInitialState: function getInitialState() {
+	        return { value: '' };
+	    },
 	
-					componentWillUnmount: function componentWillUnmount() {
-									console.log('componentWillUnmount');
-					},
+	    render: function render() {
+	        return _react2.default.createElement(
+	            'div',
+	            { className: 'edit-project hidden' },
+	            _react2.default.createElement('input', {
+	                id: 'edit-input',
+	                type: 'text',
+	                value: this.state.value,
+	                onChange: this.handleChange
+	            }),
+	            _react2.default.createElement('input', { type: 'button', value: 'GO', onClick: this.setValue })
+	        );
+	    },
 	
-					getInitialState: function getInitialState() {
-									return { value: this.props.project };
-					},
+	    setValue: function setValue(e) {
+	        var editInput = document.getElementById('edit-input'),
+	            id = editInput.getAttribute('data-id'),
+	            projectName = editInput.value;
 	
-					render: function render() {
-									return _react2.default.createElement(
-													'div',
-													{ className: 'edit-project' },
-													_react2.default.createElement('input', {
-																	id: 'edit-input',
-																	type: 'text',
-																	value: this.state.value,
-																	'data-id': this.props.id,
-																	onChange: this.handleChange
-													}),
-													_react2.default.createElement('input', { type: 'button', value: 'GO', onClick: this.props.updateInputField })
-									);
-					},
+	        this.setState({ value: projectName });
+	        this.props.disptachProjectUpdate(e, id, projectName);
+	    },
 	
-					handleChange: function handleChange(e) {
-									console.log(e.target.value, this.props);
-									this.setState({ value: e.target.value });
-					}
+	    handleChange: function handleChange(e) {
+	        this.setState({ value: e.target.value });
+	    }
 	
 	});
 
 /***/ },
-/* 254 */
+/* 247 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(221);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var NumCompanies = _react2.default.createClass({
+	    displayName: 'NumCompanies',
+	
+	    render: function render() {
+	        return _react2.default.createElement(
+	            'span',
+	            null,
+	            this.props.numberProjects
+	        );
+	    }
+	});
+	
+	var stateToProps = function stateToProps(state) {
+	    return {
+	        numberProjects: state.projectReducer.projects.length
+	    };
+	};
+	
+	exports.default = (0, _reactRedux.connect)(stateToProps)(NumCompanies);
+
+/***/ },
+/* 248 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(221);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var NumberProjects = _react2.default.createClass({
+	    displayName: 'NumberProjects',
+	
+	    render: function render() {
+	        return _react2.default.createElement(
+	            'span',
+	            null,
+	            this.props.numberProjects
+	        );
+	    }
+	});
+	
+	var stateToProps = function stateToProps(state) {
+	    return {
+	        numberProjects: state.projectReducer.projects.length
+	    };
+	};
+	
+	exports.default = (0, _reactRedux.connect)(stateToProps)(NumberProjects);
+
+/***/ },
+/* 249 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = _react2.default.createClass({
+	    displayName: 'home',
+	
+	    render: function render() {
+	        return _react2.default.createElement(
+	            'p',
+	            null,
+	            'View companies and projects'
+	        );
+	    }
+	});
+
+/***/ },
+/* 250 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _companies = __webpack_require__(251);
+	
+	var _companies2 = _interopRequireDefault(_companies);
+	
+	var _projects = __webpack_require__(252);
+	
+	var _reactRedux = __webpack_require__(221);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var CompaniesContainer = _react2.default.createClass({
+	    displayName: 'CompaniesContainer',
+	
+	
+	    componentWillMount: function componentWillMount() {
+	        (0, _projects.getProjects)();
+	    },
+	
+	    render: function render() {
+	        return _react2.default.createElement(_companies2.default, this.props);
+	    }
+	
+	});
+	
+	var stateToProps = function stateToProps(state) {
+	    return {
+	        companies: state.projectReducer.projects
+	    };
+	};
+	
+	exports.default = (0, _reactRedux.connect)(stateToProps)(CompaniesContainer);
+
+/***/ },
+/* 251 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = _react2.default.createClass({
+	    displayName: "companies",
+	
+	    render: function render() {
+	        return _react2.default.createElement(
+	            "div",
+	            { className: "companies-page" },
+	            _react2.default.createElement(
+	                "h3",
+	                null,
+	                "Companies"
+	            ),
+	            _react2.default.createElement(
+	                "ul",
+	                null,
+	                this.props.companies.map(function (proj, i) {
+	                    return _react2.default.createElement(
+	                        "li",
+	                        { key: i },
+	                        proj.company
+	                    );
+	                })
+	            )
+	        );
+	    }
+	});
+
+/***/ },
+/* 252 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27303,7 +27230,7 @@
 	});
 	exports.getProjects = getProjects;
 	
-	var _axios = __webpack_require__(255);
+	var _axios = __webpack_require__(253);
 	
 	var _axios2 = _interopRequireDefault(_axios);
 	
@@ -27328,25 +27255,25 @@
 	}
 
 /***/ },
-/* 255 */
+/* 253 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(256);
+	module.exports = __webpack_require__(254);
 
 /***/ },
-/* 256 */
+/* 254 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var defaults = __webpack_require__(257);
-	var utils = __webpack_require__(258);
-	var dispatchRequest = __webpack_require__(259);
-	var InterceptorManager = __webpack_require__(267);
-	var isAbsoluteURL = __webpack_require__(268);
-	var combineURLs = __webpack_require__(269);
-	var bind = __webpack_require__(270);
-	var transformData = __webpack_require__(263);
+	var defaults = __webpack_require__(255);
+	var utils = __webpack_require__(256);
+	var dispatchRequest = __webpack_require__(257);
+	var InterceptorManager = __webpack_require__(265);
+	var isAbsoluteURL = __webpack_require__(266);
+	var combineURLs = __webpack_require__(267);
+	var bind = __webpack_require__(268);
+	var transformData = __webpack_require__(261);
 	
 	function Axios(defaultConfig) {
 	  this.defaults = utils.merge({}, defaultConfig);
@@ -27429,7 +27356,7 @@
 	axios.all = function all(promises) {
 	  return Promise.all(promises);
 	};
-	axios.spread = __webpack_require__(271);
+	axios.spread = __webpack_require__(269);
 	
 	// Expose interceptors
 	axios.interceptors = defaultInstance.interceptors;
@@ -27460,12 +27387,12 @@
 
 
 /***/ },
-/* 257 */
+/* 255 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(258);
+	var utils = __webpack_require__(256);
 	
 	var PROTECTION_PREFIX = /^\)\]\}',?\n/;
 	var DEFAULT_CONTENT_TYPE = {
@@ -27529,7 +27456,7 @@
 
 
 /***/ },
-/* 258 */
+/* 256 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -27779,7 +27706,7 @@
 
 
 /***/ },
-/* 259 */
+/* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -27801,10 +27728,10 @@
 	        adapter = config.adapter;
 	      } else if (typeof XMLHttpRequest !== 'undefined') {
 	        // For browsers use XHR adapter
-	        adapter = __webpack_require__(260);
+	        adapter = __webpack_require__(258);
 	      } else if (typeof process !== 'undefined') {
 	        // For node use HTTP adapter
-	        adapter = __webpack_require__(260);
+	        adapter = __webpack_require__(258);
 	      }
 	
 	      if (typeof adapter === 'function') {
@@ -27820,17 +27747,17 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 260 */
+/* 258 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(258);
-	var buildURL = __webpack_require__(261);
-	var parseHeaders = __webpack_require__(262);
-	var transformData = __webpack_require__(263);
-	var isURLSameOrigin = __webpack_require__(264);
-	var btoa = window.btoa || __webpack_require__(265);
+	var utils = __webpack_require__(256);
+	var buildURL = __webpack_require__(259);
+	var parseHeaders = __webpack_require__(260);
+	var transformData = __webpack_require__(261);
+	var isURLSameOrigin = __webpack_require__(262);
+	var btoa = window.btoa || __webpack_require__(263);
 	
 	module.exports = function xhrAdapter(resolve, reject, config) {
 	  var requestData = config.data;
@@ -27905,7 +27832,7 @@
 	  // This is only done if running in a standard browser environment.
 	  // Specifically not if we're in a web worker, or react-native.
 	  if (utils.isStandardBrowserEnv()) {
-	    var cookies = __webpack_require__(266);
+	    var cookies = __webpack_require__(264);
 	
 	    // Add xsrf header
 	    var xsrfValue = config.withCredentials || isURLSameOrigin(config.url) ?
@@ -27956,12 +27883,12 @@
 
 
 /***/ },
-/* 261 */
+/* 259 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(258);
+	var utils = __webpack_require__(256);
 	
 	function encode(val) {
 	  return encodeURIComponent(val).
@@ -28029,12 +27956,12 @@
 
 
 /***/ },
-/* 262 */
+/* 260 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(258);
+	var utils = __webpack_require__(256);
 	
 	/**
 	 * Parse headers into an object
@@ -28072,12 +27999,12 @@
 
 
 /***/ },
-/* 263 */
+/* 261 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(258);
+	var utils = __webpack_require__(256);
 	
 	/**
 	 * Transform the data for a request or a response
@@ -28098,12 +28025,12 @@
 
 
 /***/ },
-/* 264 */
+/* 262 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(258);
+	var utils = __webpack_require__(256);
 	
 	module.exports = (
 	  utils.isStandardBrowserEnv() ?
@@ -28172,7 +28099,7 @@
 
 
 /***/ },
-/* 265 */
+/* 263 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -28214,12 +28141,12 @@
 
 
 /***/ },
-/* 266 */
+/* 264 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(258);
+	var utils = __webpack_require__(256);
 	
 	module.exports = (
 	  utils.isStandardBrowserEnv() ?
@@ -28273,12 +28200,12 @@
 
 
 /***/ },
-/* 267 */
+/* 265 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(258);
+	var utils = __webpack_require__(256);
 	
 	function InterceptorManager() {
 	  this.handlers = [];
@@ -28331,7 +28258,7 @@
 
 
 /***/ },
-/* 268 */
+/* 266 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -28351,7 +28278,7 @@
 
 
 /***/ },
-/* 269 */
+/* 267 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -28369,7 +28296,7 @@
 
 
 /***/ },
-/* 270 */
+/* 268 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -28386,7 +28313,7 @@
 
 
 /***/ },
-/* 271 */
+/* 269 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -28417,6 +28344,127 @@
 	  };
 	};
 
+
+/***/ },
+/* 270 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactDom = __webpack_require__(158);
+	
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+	
+	var _projects = __webpack_require__(271);
+	
+	var _projects2 = _interopRequireDefault(_projects);
+	
+	var _editProjectContainer = __webpack_require__(245);
+	
+	var _editProjectContainer2 = _interopRequireDefault(_editProjectContainer);
+	
+	var _reactRedux = __webpack_require__(221);
+	
+	var _projects3 = __webpack_require__(252);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var ProjectContainer = _react2.default.createClass({
+	    displayName: 'ProjectContainer',
+	
+	
+	    componentWillMount: function componentWillMount() {
+	        (0, _projects3.getProjects)();
+	    },
+	
+	    render: function render() {
+	        return _react2.default.createElement(_projects2.default, this.props);
+	    }
+	
+	});
+	
+	var stateToProps = function stateToProps(state) {
+	    return {
+	        projects: state.projectReducer.projects
+	    };
+	};
+	
+	var dispatchToProps = function dispatchToProps() {
+	    return {
+	        openEditInput: function openEditInput(e) {
+	            var editInputEle = document.getElementsByClassName('edit-project')[0],
+	                editInputField = editInputEle.querySelectorAll('.edit-project input')[0];
+	
+	            if (editInputEle.classList.contains('hidden')) {
+	                editInputEle.classList.remove("hidden");
+	            }
+	
+	            editInputField.setAttribute('data-id', e.target.getAttribute('data-id'));
+	            editInputField.value = e.target.getAttribute('data-project');
+	        }
+	    };
+	};
+	
+	exports.default = (0, _reactRedux.connect)(stateToProps, dispatchToProps)(ProjectContainer);
+
+/***/ },
+/* 271 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = _react2.default.createClass({
+	    displayName: "projects",
+	
+	    render: function render() {
+	        var _this = this;
+	
+	        return _react2.default.createElement(
+	            "div",
+	            { className: "projects-page" },
+	            _react2.default.createElement(
+	                "h3",
+	                null,
+	                "Projects"
+	            ),
+	            _react2.default.createElement(
+	                "ul",
+	                null,
+	                this.props.projects.map(function (proj, i) {
+	                    return _react2.default.createElement(
+	                        "li",
+	                        { key: i },
+	                        proj.project,
+	                        " - ",
+	                        _react2.default.createElement(
+	                            "a",
+	                            { href: "#", "data-id": proj._id, "data-project": proj.project, onClick: _this.props.openEditInput },
+	                            "edit"
+	                        )
+	                    );
+	                })
+	            )
+	        );
+	    }
+	});
 
 /***/ }
 /******/ ]);

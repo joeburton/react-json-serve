@@ -4,7 +4,6 @@ import Projects from './projects';
 import EditProjectContainer from './edit-project-container';
 import { connect } from 'react-redux';
 import { getProjects } from 'api/projects';
-import store from 'store';
 
 const ProjectContainer = React.createClass({
 
@@ -29,13 +28,15 @@ const stateToProps = function(state) {
 const dispatchToProps = function() {
     return {
         openEditInput: (e) => {
-            console.log(e.target.getAttribute('data-id'), e.target.getAttribute('data-project'));
-            if (document.getElementById('edit-input')) {
-                ReactDOM.unmountComponentAtNode(document.getElementById('edit-container'));    
+            let editInputEle = document.getElementsByClassName('edit-project')[0],
+                editInputField = editInputEle.querySelectorAll('.edit-project input')[0];
+
+            if (editInputEle.classList.contains('hidden')) {
+                editInputEle.classList.remove("hidden");    
             }
-            ReactDOM.render((
-                <EditProjectContainer store={store} id={e.target.getAttribute('data-id')} project={e.target.getAttribute('data-project')} />   
-            ), document.getElementById('edit-container'));
+
+            editInputField.setAttribute('data-id', e.target.getAttribute('data-id'));
+            editInputField.value = e.target.getAttribute('data-project');
         }
     }
 }

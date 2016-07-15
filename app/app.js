@@ -9,7 +9,7 @@ import App from 'layouts/app';
 
 // Components
 import Home from 'ui/home';
-import WidgetContainer from 'ui/widget-container';
+import CompaniesContainer from 'ui/companies-container';
 import ProjectsContainer from 'ui/projects-container';
 
 ReactDOM.render((
@@ -18,7 +18,7 @@ ReactDOM.render((
             <Route component={App}>
                 <Route path="/" component={Home} />
                 <Route path="/projects" component={ProjectsContainer} />
-                <Route path="/widgets" component={WidgetContainer} />
+                <Route path="/companies" component={CompaniesContainer} />
             </Route>
         </Router>
     </Provider>
