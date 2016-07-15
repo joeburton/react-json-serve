@@ -66,11 +66,11 @@
 	
 	var _app2 = _interopRequireDefault(_app);
 	
-	var _home = __webpack_require__(249);
+	var _home = __webpack_require__(267);
 	
 	var _home2 = _interopRequireDefault(_home);
 	
-	var _companiesContainer = __webpack_require__(250);
+	var _companiesContainer = __webpack_require__(268);
 	
 	var _companiesContainer2 = _interopRequireDefault(_companiesContainer);
 	
@@ -26856,10 +26856,25 @@
 	
 	var _numberProjects2 = _interopRequireDefault(_numberProjects);
 	
+	var _projects = __webpack_require__(249);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	exports.default = _react2.default.createClass({
 	    displayName: 'app',
+	
+	
+	    componentWillMount: function componentWillMount() {
+	        (0, _projects.getProjects)();
+	    },
+	
+	    closeEditInput: function closeEditInput() {
+	        var editInputEle = document.getElementsByClassName('edit-project')[0];
+	
+	        if (!editInputEle.classList.contains('hidden')) {
+	            editInputEle.classList.add("hidden");
+	        }
+	    },
 	
 	    render: function render(state) {
 	        return _react2.default.createElement(
@@ -26878,7 +26893,7 @@
 	                    null,
 	                    _react2.default.createElement(
 	                        _reactRouter.Link,
-	                        { to: '/' },
+	                        { to: '/', onClick: this.closeEditInput },
 	                        'Home'
 	                    )
 	                ),
@@ -26887,7 +26902,7 @@
 	                    null,
 	                    _react2.default.createElement(
 	                        _reactRouter.Link,
-	                        { to: '/companies' },
+	                        { to: '/companies', onClick: this.closeEditInput },
 	                        'Companies'
 	                    ),
 	                    '(',
@@ -27111,126 +27126,9 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = _react2.default.createClass({
-	    displayName: 'home',
-	
-	    render: function render() {
-	        return _react2.default.createElement(
-	            'p',
-	            null,
-	            'View companies and projects'
-	        );
-	    }
-	});
-
-/***/ },
-/* 250 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _companies = __webpack_require__(251);
-	
-	var _companies2 = _interopRequireDefault(_companies);
-	
-	var _projects = __webpack_require__(252);
-	
-	var _reactRedux = __webpack_require__(221);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var CompaniesContainer = _react2.default.createClass({
-	    displayName: 'CompaniesContainer',
-	
-	
-	    componentWillMount: function componentWillMount() {
-	        (0, _projects.getProjects)();
-	    },
-	
-	    render: function render() {
-	        return _react2.default.createElement(_companies2.default, this.props);
-	    }
-	
-	});
-	
-	var stateToProps = function stateToProps(state) {
-	    return {
-	        companies: state.projectReducer.projects
-	    };
-	};
-	
-	exports.default = (0, _reactRedux.connect)(stateToProps)(CompaniesContainer);
-
-/***/ },
-/* 251 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = _react2.default.createClass({
-	    displayName: "companies",
-	
-	    render: function render() {
-	        return _react2.default.createElement(
-	            "div",
-	            { className: "companies-page" },
-	            _react2.default.createElement(
-	                "h3",
-	                null,
-	                "Companies"
-	            ),
-	            _react2.default.createElement(
-	                "ul",
-	                null,
-	                this.props.companies.map(function (proj, i) {
-	                    return _react2.default.createElement(
-	                        "li",
-	                        { key: i },
-	                        proj.company
-	                    );
-	                })
-	            )
-	        );
-	    }
-	});
-
-/***/ },
-/* 252 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
 	exports.getProjects = getProjects;
 	
-	var _axios = __webpack_require__(253);
+	var _axios = __webpack_require__(250);
 	
 	var _axios2 = _interopRequireDefault(_axios);
 	
@@ -27255,25 +27153,25 @@
 	}
 
 /***/ },
-/* 253 */
+/* 250 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(254);
+	module.exports = __webpack_require__(251);
 
 /***/ },
-/* 254 */
+/* 251 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var defaults = __webpack_require__(255);
-	var utils = __webpack_require__(256);
-	var dispatchRequest = __webpack_require__(257);
-	var InterceptorManager = __webpack_require__(265);
-	var isAbsoluteURL = __webpack_require__(266);
-	var combineURLs = __webpack_require__(267);
-	var bind = __webpack_require__(268);
-	var transformData = __webpack_require__(261);
+	var defaults = __webpack_require__(252);
+	var utils = __webpack_require__(253);
+	var dispatchRequest = __webpack_require__(254);
+	var InterceptorManager = __webpack_require__(262);
+	var isAbsoluteURL = __webpack_require__(263);
+	var combineURLs = __webpack_require__(264);
+	var bind = __webpack_require__(265);
+	var transformData = __webpack_require__(258);
 	
 	function Axios(defaultConfig) {
 	  this.defaults = utils.merge({}, defaultConfig);
@@ -27356,7 +27254,7 @@
 	axios.all = function all(promises) {
 	  return Promise.all(promises);
 	};
-	axios.spread = __webpack_require__(269);
+	axios.spread = __webpack_require__(266);
 	
 	// Expose interceptors
 	axios.interceptors = defaultInstance.interceptors;
@@ -27387,12 +27285,12 @@
 
 
 /***/ },
-/* 255 */
+/* 252 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(256);
+	var utils = __webpack_require__(253);
 	
 	var PROTECTION_PREFIX = /^\)\]\}',?\n/;
 	var DEFAULT_CONTENT_TYPE = {
@@ -27456,7 +27354,7 @@
 
 
 /***/ },
-/* 256 */
+/* 253 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -27706,7 +27604,7 @@
 
 
 /***/ },
-/* 257 */
+/* 254 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -27728,10 +27626,10 @@
 	        adapter = config.adapter;
 	      } else if (typeof XMLHttpRequest !== 'undefined') {
 	        // For browsers use XHR adapter
-	        adapter = __webpack_require__(258);
+	        adapter = __webpack_require__(255);
 	      } else if (typeof process !== 'undefined') {
 	        // For node use HTTP adapter
-	        adapter = __webpack_require__(258);
+	        adapter = __webpack_require__(255);
 	      }
 	
 	      if (typeof adapter === 'function') {
@@ -27747,17 +27645,17 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 258 */
+/* 255 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(256);
-	var buildURL = __webpack_require__(259);
-	var parseHeaders = __webpack_require__(260);
-	var transformData = __webpack_require__(261);
-	var isURLSameOrigin = __webpack_require__(262);
-	var btoa = window.btoa || __webpack_require__(263);
+	var utils = __webpack_require__(253);
+	var buildURL = __webpack_require__(256);
+	var parseHeaders = __webpack_require__(257);
+	var transformData = __webpack_require__(258);
+	var isURLSameOrigin = __webpack_require__(259);
+	var btoa = window.btoa || __webpack_require__(260);
 	
 	module.exports = function xhrAdapter(resolve, reject, config) {
 	  var requestData = config.data;
@@ -27832,7 +27730,7 @@
 	  // This is only done if running in a standard browser environment.
 	  // Specifically not if we're in a web worker, or react-native.
 	  if (utils.isStandardBrowserEnv()) {
-	    var cookies = __webpack_require__(264);
+	    var cookies = __webpack_require__(261);
 	
 	    // Add xsrf header
 	    var xsrfValue = config.withCredentials || isURLSameOrigin(config.url) ?
@@ -27883,12 +27781,12 @@
 
 
 /***/ },
-/* 259 */
+/* 256 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(256);
+	var utils = __webpack_require__(253);
 	
 	function encode(val) {
 	  return encodeURIComponent(val).
@@ -27956,12 +27854,12 @@
 
 
 /***/ },
-/* 260 */
+/* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(256);
+	var utils = __webpack_require__(253);
 	
 	/**
 	 * Parse headers into an object
@@ -27999,12 +27897,12 @@
 
 
 /***/ },
-/* 261 */
+/* 258 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(256);
+	var utils = __webpack_require__(253);
 	
 	/**
 	 * Transform the data for a request or a response
@@ -28025,12 +27923,12 @@
 
 
 /***/ },
-/* 262 */
+/* 259 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(256);
+	var utils = __webpack_require__(253);
 	
 	module.exports = (
 	  utils.isStandardBrowserEnv() ?
@@ -28099,7 +27997,7 @@
 
 
 /***/ },
-/* 263 */
+/* 260 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -28141,12 +28039,12 @@
 
 
 /***/ },
-/* 264 */
+/* 261 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(256);
+	var utils = __webpack_require__(253);
 	
 	module.exports = (
 	  utils.isStandardBrowserEnv() ?
@@ -28200,12 +28098,12 @@
 
 
 /***/ },
-/* 265 */
+/* 262 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(256);
+	var utils = __webpack_require__(253);
 	
 	function InterceptorManager() {
 	  this.handlers = [];
@@ -28258,7 +28156,7 @@
 
 
 /***/ },
-/* 266 */
+/* 263 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -28278,7 +28176,7 @@
 
 
 /***/ },
-/* 267 */
+/* 264 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -28296,7 +28194,7 @@
 
 
 /***/ },
-/* 268 */
+/* 265 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -28313,7 +28211,7 @@
 
 
 /***/ },
-/* 269 */
+/* 266 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -28346,6 +28244,123 @@
 
 
 /***/ },
+/* 267 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = _react2.default.createClass({
+	    displayName: 'home',
+	
+	    render: function render() {
+	        return _react2.default.createElement(
+	            'p',
+	            null,
+	            'View companies and projects'
+	        );
+	    }
+	});
+
+/***/ },
+/* 268 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _companies = __webpack_require__(269);
+	
+	var _companies2 = _interopRequireDefault(_companies);
+	
+	var _projects = __webpack_require__(249);
+	
+	var _reactRedux = __webpack_require__(221);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var CompaniesContainer = _react2.default.createClass({
+	    displayName: 'CompaniesContainer',
+	
+	
+	    componentWillMount: function componentWillMount() {
+	        (0, _projects.getProjects)();
+	    },
+	
+	    render: function render() {
+	        return _react2.default.createElement(_companies2.default, this.props);
+	    }
+	
+	});
+	
+	var stateToProps = function stateToProps(state) {
+	    return {
+	        companies: state.projectReducer.projects
+	    };
+	};
+	
+	exports.default = (0, _reactRedux.connect)(stateToProps)(CompaniesContainer);
+
+/***/ },
+/* 269 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = _react2.default.createClass({
+	    displayName: "companies",
+	
+	    render: function render() {
+	        return _react2.default.createElement(
+	            "div",
+	            { className: "companies-page" },
+	            _react2.default.createElement(
+	                "h3",
+	                null,
+	                "Companies"
+	            ),
+	            _react2.default.createElement(
+	                "ul",
+	                null,
+	                this.props.companies.map(function (proj, i) {
+	                    return _react2.default.createElement(
+	                        "li",
+	                        { key: i },
+	                        proj.company
+	                    );
+	                })
+	            )
+	        );
+	    }
+	});
+
+/***/ },
 /* 270 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -28373,7 +28388,7 @@
 	
 	var _reactRedux = __webpack_require__(221);
 	
-	var _projects3 = __webpack_require__(252);
+	var _projects3 = __webpack_require__(249);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
