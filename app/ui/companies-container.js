@@ -1,15 +1,15 @@
 import React from 'react';
 import Companies from './companies';
-import { getProjects } from 'api/projects';
 import { connect } from 'react-redux';
+import axiosAjax from 'api/projects';
 
 const CompaniesContainer = React.createClass({
 
-    componentWillMount: function() {
-        getProjects()
+    componentWillMount() {
+       // axiosAjax.getProjects()
     },
 
-    render: function() {
+    render() {
         return (
             <Companies {...this.props} />
         )

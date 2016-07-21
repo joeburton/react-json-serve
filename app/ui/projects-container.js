@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom';
 import Projects from './projects';
 import EditProjectContainer from './edit-project-container';
 import { connect } from 'react-redux';
-import { getProjects } from 'api/projects';
+import axiosAjax from 'api/projects';
 
 const ProjectContainer = React.createClass({
 
     componentWillMount: function() {
-        getProjects()
+        //axiosAjax.getProjects()
     },
 
     render: function() {
@@ -28,7 +28,7 @@ const stateToProps = function(state) {
 const dispatchToProps = function() {
     return {
         openEditInput: (e) => {
-            let editInputEle = document.getElementsByClassName('edit-project')[0],
+            let editInputEle = document.querySelectorAll('.edit-project')[0],
                 editInputField = editInputEle.querySelectorAll('.edit-project input')[0];
 
             if (editInputEle.classList.contains('hidden')) {

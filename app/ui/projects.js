@@ -8,7 +8,13 @@ export default React.createClass({
                 <ul>
                     {this.props.projects.map((proj, i) => {
                         return (
-                            <li key={i}>{proj.project} - <a href="#" data-id={proj._id} data-project={proj.project} onClick={this.props.openEditInput}>edit</a></li>
+                            <li key={i}>
+                            <span>{'Project: ' + proj.project}</span>
+                            <span>{'Company:' + proj.company}</span>
+                            <span>{'URL: ' + proj.link}</span>
+                            <span>{'Skills: ' + proj.skills}</span>
+                            <span>{'Description: ' + proj.description}</span> 
+                            <a href="#" data-id={proj._id} data-project={proj.project} onClick={this.props.openEditInput}>edit</a></li>
                         );
                     })}
                 </ul>

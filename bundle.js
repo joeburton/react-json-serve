@@ -26858,6 +26858,8 @@
 	
 	var _projects = __webpack_require__(249);
 	
+	var _projects2 = _interopRequireDefault(_projects);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	exports.default = _react2.default.createClass({
@@ -26865,11 +26867,11 @@
 	
 	
 	    componentWillMount: function componentWillMount() {
-	        (0, _projects.getProjects)();
+	        _projects2.default.getProjects();
 	    },
 	
 	    closeEditInput: function closeEditInput() {
-	        var editInputEle = document.getElementsByClassName('edit-project')[0];
+	        var editInputEle = document.querySelectorAll('.edit-project')[0];
 	
 	        if (!editInputEle.classList.contains('hidden')) {
 	            editInputEle.classList.add("hidden");
@@ -26930,6 +26932,7 @@
 	            _react2.default.createElement(_editProjectContainer2.default, null)
 	        );
 	    }
+	
 	});
 
 /***/ },
@@ -27124,9 +27127,8 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+		value: true
 	});
-	exports.getProjects = getProjects;
 	
 	var _axios = __webpack_require__(250);
 	
@@ -27138,19 +27140,33 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	function getProjects() {
-	    return _axios2.default.get('http://localhost:3000/projects').then(function (response) {
+	var axiosAjax = {
+		getProjects: function getProjects() {
+			return _axios2.default.get('http://localhost:3000/projects').then(function (response) {
+				_store2.default.dispatch({
+					type: 'GET_PROJECTS',
+					projects: response.data
+				});
+				return response;
+			}).catch(function (err) {
+				console.error(err);
+			});
+		},
+		addProject: function addProject(data) {
+			// return axios.post('/projects', {
+			// 	firstName: 'Fred',
+			// 	lastName: 'Flintstone'
+			// })
+			// .then(function (response) {
+			// 	console.log(response);
+			// })
+			// .catch(function (error) {
+			// 	console.log(error);
+			// });
+		}
+	};
 	
-	        _store2.default.dispatch({
-	            type: 'GET_PROJECTS',
-	            projects: response.data
-	        });
-	
-	        return response;
-	    }).catch(function (err) {
-	        console.error(err);
-	    });
-	}
+	exports.default = axiosAjax;
 
 /***/ },
 /* 250 */
@@ -28289,24 +28305,22 @@
 	
 	var _companies2 = _interopRequireDefault(_companies);
 	
+	var _reactRedux = __webpack_require__(221);
+	
 	var _projects = __webpack_require__(249);
 	
-	var _reactRedux = __webpack_require__(221);
+	var _projects2 = _interopRequireDefault(_projects);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var CompaniesContainer = _react2.default.createClass({
 	    displayName: 'CompaniesContainer',
-	
-	
 	    componentWillMount: function componentWillMount() {
-	        (0, _projects.getProjects)();
+	        // axiosAjax.getProjects()
 	    },
-	
 	    render: function render() {
 	        return _react2.default.createElement(_companies2.default, this.props);
 	    }
-	
 	});
 	
 	var stateToProps = function stateToProps(state) {
@@ -28390,6 +28404,8 @@
 	
 	var _projects3 = __webpack_require__(249);
 	
+	var _projects4 = _interopRequireDefault(_projects3);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var ProjectContainer = _react2.default.createClass({
@@ -28397,7 +28413,7 @@
 	
 	
 	    componentWillMount: function componentWillMount() {
-	        (0, _projects3.getProjects)();
+	        //axiosAjax.getProjects()
 	    },
 	
 	    render: function render() {
@@ -28415,7 +28431,7 @@
 	var dispatchToProps = function dispatchToProps() {
 	    return {
 	        openEditInput: function openEditInput(e) {
-	            var editInputEle = document.getElementsByClassName('edit-project')[0],
+	            var editInputEle = document.querySelectorAll('.edit-project')[0],
 	                editInputField = editInputEle.querySelectorAll('.edit-project input')[0];
 	
 	            if (editInputEle.classList.contains('hidden')) {
@@ -28434,7 +28450,7 @@
 /* 271 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -28447,32 +28463,55 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	exports.default = _react2.default.createClass({
-	    displayName: "projects",
+	    displayName: 'projects',
 	
 	    render: function render() {
 	        var _this = this;
 	
 	        return _react2.default.createElement(
-	            "div",
-	            { className: "projects-page" },
+	            'div',
+	            { className: 'projects-page' },
 	            _react2.default.createElement(
-	                "h3",
+	                'h3',
 	                null,
-	                "Projects"
+	                'Projects'
 	            ),
 	            _react2.default.createElement(
-	                "ul",
+	                'ul',
 	                null,
 	                this.props.projects.map(function (proj, i) {
 	                    return _react2.default.createElement(
-	                        "li",
+	                        'li',
 	                        { key: i },
-	                        proj.project,
-	                        " - ",
 	                        _react2.default.createElement(
-	                            "a",
-	                            { href: "#", "data-id": proj._id, "data-project": proj.project, onClick: _this.props.openEditInput },
-	                            "edit"
+	                            'span',
+	                            null,
+	                            'Project: ' + proj.project
+	                        ),
+	                        _react2.default.createElement(
+	                            'span',
+	                            null,
+	                            'Company:' + proj.company
+	                        ),
+	                        _react2.default.createElement(
+	                            'span',
+	                            null,
+	                            'URL: ' + proj.link
+	                        ),
+	                        _react2.default.createElement(
+	                            'span',
+	                            null,
+	                            'Skills: ' + proj.skills
+	                        ),
+	                        _react2.default.createElement(
+	                            'span',
+	                            null,
+	                            'Description: ' + proj.description
+	                        ),
+	                        _react2.default.createElement(
+	                            'a',
+	                            { href: '#', 'data-id': proj._id, 'data-project': proj.project, onClick: _this.props.openEditInput },
+	                            'edit'
 	                        )
 	                    );
 	                })

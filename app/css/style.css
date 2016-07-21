@@ -26,3 +26,12 @@ ul {
 .companies-page ul li {
     list-style: none;
 }
+
+.projects-page ul li {
+    padding-bottom: 15px;
+}
+
+.projects-page li span {
+    display: block;
+    margin: 0 0 4px 0;
+}

@@ -3,16 +3,16 @@ import { Link } from 'react-router';
 import EditProjectContainer from 'ui/edit-project-container';
 import NumberCompanies from 'ui/number-companies';
 import NumberProjects from 'ui/number-projects';
-import { getProjects } from 'api/projects';
+import axiosAjax from 'api/projects';
 
 export default React.createClass({
 
     componentWillMount: function() {
-        getProjects()
+        axiosAjax.getProjects()
     },
 
     closeEditInput: function () {
-        let editInputEle = document.getElementsByClassName('edit-project')[0]
+        let editInputEle = document.querySelectorAll('.edit-project')[0]
 
         if (!editInputEle.classList.contains('hidden')) {
             editInputEle.classList.add("hidden");    
@@ -35,4 +35,5 @@ export default React.createClass({
             </div>
         )
     }
+    
 });
