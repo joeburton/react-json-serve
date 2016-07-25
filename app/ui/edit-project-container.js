@@ -13,14 +13,14 @@ const EditProjectContainer = React.createClass({
 
 const dispatchToProps = function(dispatch) {
     return {
-        disptachProjectUpdate: (e, id, projectName) => {
+        disptachProjectUpdate: (e, id, name) => {
             e.preventDefault();
 
             store.dispatch({
                 type: 'EDIT_PROJECT',
                 project: {
                     "_id": id,
-                    "project": projectName,
+                    "project": name,
                     "link": "none",
                     "company": "none",
                     "skills": "Backbone, JavaScript, Jasmine, Require",

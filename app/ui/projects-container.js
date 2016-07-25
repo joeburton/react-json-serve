@@ -28,15 +28,28 @@ const stateToProps = function(state) {
 const dispatchToProps = function() {
     return {
         openEditInput: (e) => {
-            let editInputEle = document.querySelectorAll('.edit-project')[0],
-                editInputField = editInputEle.querySelectorAll('.edit-project input')[0];
+            // get edit field elements
+            let editProjectEle = document.querySelectorAll('.edit-project')[0],
+                editFields = editProjectEle.querySelectorAll('.edit-fields')[0],
+                name = editProjectEle.querySelectorAll('.project-name')[0],
+                company = editProjectEle.querySelectorAll('.company')[0],
+                link = editProjectEle.querySelectorAll('.link')[0],
+                skills = editProjectEle.querySelectorAll('.skills')[0],
+                description = editProjectEle.querySelectorAll('.description')[0];
 
-            if (editInputEle.classList.contains('hidden')) {
-                editInputEle.classList.remove("hidden");    
+            if (editProjectEle.classList.contains('hidden')) {
+                editProjectEle.classList.remove("hidden");    
             }
 
-            editInputField.setAttribute('data-id', e.target.getAttribute('data-id'));
-            editInputField.value = e.target.getAttribute('data-project');
+            // set edit field values
+            // @TODO get vales from html
+            editFields.setAttribute('data-id', e.target.getAttribute('data-id'));
+            name.value = 'www';
+            company.value = 'company';
+            link.value = 'link';
+            skills.value = 'skills';
+            description.value = 'description';
+
         }
     }
 }

@@ -12,10 +12,10 @@ export default React.createClass({
     },
 
     closeEditInput: function () {
-        let editInputEle = document.querySelectorAll('.edit-project')[0]
+        let editProjectEle = document.querySelectorAll('.edit-project')[0]
 
-        if (!editInputEle.classList.contains('hidden')) {
-            editInputEle.classList.add("hidden");    
+        if (!editProjectEle.classList.contains('hidden')) {
+            editProjectEle.classList.add("hidden");    
         }
     },
 

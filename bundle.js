@@ -26871,10 +26871,10 @@
 	    },
 	
 	    closeEditInput: function closeEditInput() {
-	        var editInputEle = document.querySelectorAll('.edit-project')[0];
+	        var editProjectEle = document.querySelectorAll('.edit-project')[0];
 	
-	        if (!editInputEle.classList.contains('hidden')) {
-	            editInputEle.classList.add("hidden");
+	        if (!editProjectEle.classList.contains('hidden')) {
+	            editProjectEle.classList.add("hidden");
 	        }
 	    },
 	
@@ -26971,14 +26971,14 @@
 	
 	var dispatchToProps = function dispatchToProps(dispatch) {
 	    return {
-	        disptachProjectUpdate: function disptachProjectUpdate(e, id, projectName) {
+	        disptachProjectUpdate: function disptachProjectUpdate(e, id, name) {
 	            e.preventDefault();
 	
 	            _store2.default.dispatch({
 	                type: 'EDIT_PROJECT',
 	                project: {
 	                    "_id": id,
-	                    "project": projectName,
+	                    "project": name,
 	                    "link": "none",
 	                    "company": "none",
 	                    "skills": "Backbone, JavaScript, Jasmine, Require",
@@ -27012,34 +27012,101 @@
 	
 	
 	    getInitialState: function getInitialState() {
-	        return { value: '' };
+	        return {
+	            name: '',
+	            company: '',
+	            link: '',
+	            skills: '',
+	            description: ''
+	        };
 	    },
 	
-	    render: function render() {
+	    render: function render(state) {
 	        return _react2.default.createElement(
 	            'div',
 	            { className: 'edit-project hidden' },
-	            _react2.default.createElement('input', {
-	                id: 'edit-input',
-	                type: 'text',
-	                value: this.state.value,
-	                onChange: this.handleChange
-	            }),
-	            _react2.default.createElement('input', { type: 'button', value: 'GO', onClick: this.setValue })
+	            _react2.default.createElement('div', { className: 'edit-project-overlay' }),
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'edit-fields-wrapper' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'edit-fields', 'data-id': this.props.id },
+	                    _react2.default.createElement('input', { type: 'text',
+	                        className: 'project-name',
+	                        value: this.state.name,
+	                        onChange: this.handleChange }),
+	                    _react2.default.createElement('input', { type: 'text',
+	                        className: 'company',
+	                        value: this.state.company,
+	                        onChange: this.handleChange }),
+	                    _react2.default.createElement('input', { type: 'text',
+	                        className: 'link',
+	                        value: this.state.link,
+	                        onChange: this.handleChange }),
+	                    _react2.default.createElement('input', { type: 'text',
+	                        className: 'skills',
+	                        value: this.state.skills,
+	                        onChange: this.handleChange }),
+	                    _react2.default.createElement('input', { type: 'text',
+	                        className: 'description',
+	                        value: this.state.description,
+	                        onChange: this.handleChange }),
+	                    _react2.default.createElement('input', { type: 'button', value: 'GO', onClick: this.setValue })
+	                )
+	            )
 	        );
 	    },
 	
 	    setValue: function setValue(e) {
-	        var editInput = document.getElementById('edit-input'),
-	            id = editInput.getAttribute('data-id'),
-	            projectName = editInput.value;
+	        var fieldValues = this.getValues();
 	
-	        this.setState({ value: projectName });
-	        this.props.disptachProjectUpdate(e, id, projectName);
+	        this.setState({
+	            name: fieldValues.name,
+	            company: fieldValues.company,
+	            link: fieldValues.link,
+	            skills: fieldValues.skills,
+	            description: fieldValues.description
+	        });
+	
+	        this.props.disptachProjectUpdate(e, fieldValues.id, fieldValues.name);
+	
+	        console.log(this.state);
 	    },
 	
 	    handleChange: function handleChange(e) {
-	        this.setState({ value: e.target.value });
+	        var fieldValues = this.getValues();
+	
+	        this.setState({
+	            name: fieldValues.name,
+	            company: fieldValues.company,
+	            link: fieldValues.link,
+	            skills: fieldValues.skills,
+	            description: fieldValues.description
+	        });
+	
+	        console.log(this.state);
+	    },
+	
+	    getValues: function getValues() {
+	        // wrapping el
+	        var projectEl = document.getElementsByClassName('edit-fields')[0];
+	
+	        // get elements
+	        var name = projectEl.querySelectorAll('.project-name')[0];
+	        var company = projectEl.querySelectorAll('.company')[0];
+	        var link = projectEl.querySelectorAll('.link')[0];
+	        var skills = projectEl.querySelectorAll('.skills')[0];
+	        var description = projectEl.querySelectorAll('.description')[0];
+	
+	        return {
+	            id: projectEl.getAttribute('data-id'),
+	            name: name.value,
+	            company: company.value,
+	            link: link.value,
+	            skills: skills.value,
+	            description: description.value
+	        };
 	    }
 	
 	});
@@ -28431,15 +28498,27 @@
 	var dispatchToProps = function dispatchToProps() {
 	    return {
 	        openEditInput: function openEditInput(e) {
-	            var editInputEle = document.querySelectorAll('.edit-project')[0],
-	                editInputField = editInputEle.querySelectorAll('.edit-project input')[0];
+	            // get edit field elements
+	            var editProjectEle = document.querySelectorAll('.edit-project')[0],
+	                editFields = editProjectEle.querySelectorAll('.edit-fields')[0],
+	                name = editProjectEle.querySelectorAll('.project-name')[0],
+	                company = editProjectEle.querySelectorAll('.company')[0],
+	                link = editProjectEle.querySelectorAll('.link')[0],
+	                skills = editProjectEle.querySelectorAll('.skills')[0],
+	                description = editProjectEle.querySelectorAll('.description')[0];
 	
-	            if (editInputEle.classList.contains('hidden')) {
-	                editInputEle.classList.remove("hidden");
+	            if (editProjectEle.classList.contains('hidden')) {
+	                editProjectEle.classList.remove("hidden");
 	            }
 	
-	            editInputField.setAttribute('data-id', e.target.getAttribute('data-id'));
-	            editInputField.value = e.target.getAttribute('data-project');
+	            // set edit field values
+	            // @TODO get vales from html
+	            editFields.setAttribute('data-id', e.target.getAttribute('data-id'));
+	            name.value = 'www';
+	            company.value = 'company';
+	            link.value = 'link';
+	            skills.value = 'skills';
+	            description.value = 'description';
 	        }
 	    };
 	};
