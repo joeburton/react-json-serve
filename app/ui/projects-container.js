@@ -30,7 +30,7 @@ const dispatchToProps = function() {
         openEditInput: (e) => {
             // get edit field elements
             let editProjectEle = document.querySelectorAll('.edit-project')[0],
-                editFields = editProjectEle.querySelectorAll('.edit-fields')[0],
+                fieldsWrapper = editProjectEle.querySelectorAll('.edit-fields')[0],
                 name = editProjectEle.querySelectorAll('.project-name')[0],
                 company = editProjectEle.querySelectorAll('.company')[0],
                 link = editProjectEle.querySelectorAll('.link')[0],
@@ -42,8 +42,8 @@ const dispatchToProps = function() {
             }
 
             // set edit field values
-            // @TODO get vales from html
-            editFields.setAttribute('data-id', e.target.getAttribute('data-id'));
+            // @TODO get vales from html or pass them as props somehow? Need to research futher.
+            fieldsWrapper.setAttribute('data-id', e.target.getAttribute('data-id'));
             name.value = 'www';
             company.value = 'company';
             link.value = 'link';

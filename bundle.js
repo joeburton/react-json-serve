@@ -26971,18 +26971,18 @@
 	
 	var dispatchToProps = function dispatchToProps(dispatch) {
 	    return {
-	        disptachProjectUpdate: function disptachProjectUpdate(e, id, name) {
+	        disptachProjectUpdate: function disptachProjectUpdate(e, data) {
 	            e.preventDefault();
-	
+	            console.log(data);
 	            _store2.default.dispatch({
 	                type: 'EDIT_PROJECT',
 	                project: {
-	                    "_id": id,
-	                    "project": name,
-	                    "link": "none",
-	                    "company": "none",
-	                    "skills": "Backbone, JavaScript, Jasmine, Require",
-	                    "description": "Whilst working for lastminute.com I worked on two specific projects. For the first project I created an HTML5, LESS/ CSS3 & JavaScript mobile-first responsive search form component that used the Bootstrap framework for the underlying grid and basic styling."
+	                    "_id": data.id,
+	                    "project": data.name,
+	                    "link": data.link,
+	                    "company": data.company,
+	                    "skills": data.skills,
+	                    "description": data.description
 	                }
 	            });
 	        }
@@ -27069,9 +27069,18 @@
 	            description: fieldValues.description
 	        });
 	
-	        this.props.disptachProjectUpdate(e, fieldValues.id, fieldValues.name);
+	        // send object to dispatch then store...
+	        this.props.disptachProjectUpdate(e, {
+	            id: fieldValues.id,
+	            name: fieldValues.name,
+	            company: fieldValues.company,
+	            link: fieldValues.link,
+	            skills: fieldValues.skills,
+	            description: fieldValues.description
+	        });
 	
-	        console.log(this.state);
+	        // close overlay
+	        this.closeEditProjectOverlay();
 	    },
 	
 	    handleChange: function handleChange(e) {
@@ -27084,8 +27093,6 @@
 	            skills: fieldValues.skills,
 	            description: fieldValues.description
 	        });
-	
-	        console.log(this.state);
 	    },
 	
 	    getValues: function getValues() {
@@ -27107,6 +27114,14 @@
 	            skills: skills.value,
 	            description: description.value
 	        };
+	    },
+	
+	    closeEditProjectOverlay: function closeEditProjectOverlay() {
+	        var editProjectEle = document.querySelectorAll('.edit-project')[0];
+	
+	        if (!editProjectEle.classList.contains('hidden')) {
+	            editProjectEle.classList.add("hidden");
+	        }
 	    }
 	
 	});
@@ -28500,7 +28515,7 @@
 	        openEditInput: function openEditInput(e) {
 	            // get edit field elements
 	            var editProjectEle = document.querySelectorAll('.edit-project')[0],
-	                editFields = editProjectEle.querySelectorAll('.edit-fields')[0],
+	                fieldsWrapper = editProjectEle.querySelectorAll('.edit-fields')[0],
 	                name = editProjectEle.querySelectorAll('.project-name')[0],
 	                company = editProjectEle.querySelectorAll('.company')[0],
 	                link = editProjectEle.querySelectorAll('.link')[0],
@@ -28512,8 +28527,8 @@
 	            }
 	
 	            // set edit field values
-	            // @TODO get vales from html
-	            editFields.setAttribute('data-id', e.target.getAttribute('data-id'));
+	            // @TODO get vales from html or pass them as props somehow? Need to research futher.
+	            fieldsWrapper.setAttribute('data-id', e.target.getAttribute('data-id'));
 	            name.value = 'www';
 	            company.value = 'company';
 	            link.value = 'link';

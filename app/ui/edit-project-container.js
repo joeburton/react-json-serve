@@ -13,18 +13,18 @@ const EditProjectContainer = React.createClass({
 
 const dispatchToProps = function(dispatch) {
     return {
-        disptachProjectUpdate: (e, id, name) => {
+        disptachProjectUpdate: (e, data) => {
             e.preventDefault();
-
+            console.log(data);
             store.dispatch({
                 type: 'EDIT_PROJECT',
                 project: {
-                    "_id": id,
-                    "project": name,
-                    "link": "none",
-                    "company": "none",
-                    "skills": "Backbone, JavaScript, Jasmine, Require",
-                    "description": "Whilst working for lastminute.com I worked on two specific projects. For the first project I created an HTML5, LESS/ CSS3 & JavaScript mobile-first responsive search form component that used the Bootstrap framework for the underlying grid and basic styling."
+                    "_id": data.id,
+                    "project": data.name,
+                    "link": data.link,
+                    "company": data.company,
+                    "skills": data.skills,
+                    "description": data.description
                 }
             });
         }

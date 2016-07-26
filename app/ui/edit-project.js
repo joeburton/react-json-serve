@@ -63,9 +63,18 @@ export default React.createClass({
             description: fieldValues.description
         });
 
-        this.props.disptachProjectUpdate(e, fieldValues.id, fieldValues.name);
+        // send object to dispatch then store...
+        this.props.disptachProjectUpdate(e, {
+            id: fieldValues.id,
+            name: fieldValues.name,
+            company: fieldValues.company,
+            link: fieldValues.link,
+            skills: fieldValues.skills,
+            description: fieldValues.description
+        });
 
-        console.log(this.state);
+        // close overlay
+        this.closeEditProjectOverlay();
 
     },
 
@@ -79,8 +88,6 @@ export default React.createClass({
             skills: fieldValues.skills,
             description: fieldValues.description
         });
-
-        console.log(this.state);
 
     },
 
@@ -103,6 +110,14 @@ export default React.createClass({
             skills: skills.value,
             description: description.value
         };      
+    },
+
+    closeEditProjectOverlay: function () {
+        let editProjectEle = document.querySelectorAll('.edit-project')[0];
+
+        if (!editProjectEle.classList.contains('hidden')) {
+            editProjectEle.classList.add("hidden");    
+        }
     }
 
 });
