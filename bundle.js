@@ -26969,11 +26969,16 @@
 	    }
 	});
 	
+	var stateToProps = function stateToProps(state) {
+	    return {
+	        projects: state.projectReducer.projects
+	    };
+	};
+	
 	var dispatchToProps = function dispatchToProps(dispatch) {
 	    return {
 	        disptachProjectUpdate: function disptachProjectUpdate(e, data) {
 	            e.preventDefault();
-	            console.log(data);
 	            _store2.default.dispatch({
 	                type: 'EDIT_PROJECT',
 	                project: {
@@ -26989,7 +26994,7 @@
 	    };
 	};
 	
-	exports.default = (0, _reactRedux.connect)(dispatchToProps)(EditProjectContainer);
+	exports.default = (0, _reactRedux.connect)(stateToProps, dispatchToProps)(EditProjectContainer);
 
 /***/ },
 /* 246 */
@@ -27059,6 +27064,9 @@
 	    },
 	
 	    setValue: function setValue(e) {
+	
+	        console.log(this.props);
+	
 	        var fieldValues = this.getValues();
 	
 	        this.setState({
@@ -27069,7 +27077,7 @@
 	            description: fieldValues.description
 	        });
 	
-	        // send object to dispatch then store...
+	        // send object to dispatch in container component.
 	        this.props.disptachProjectUpdate(e, {
 	            id: fieldValues.id,
 	            name: fieldValues.name,
@@ -28470,38 +28478,20 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(158);
-	
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-	
 	var _projects = __webpack_require__(271);
 	
 	var _projects2 = _interopRequireDefault(_projects);
 	
-	var _editProjectContainer = __webpack_require__(245);
-	
-	var _editProjectContainer2 = _interopRequireDefault(_editProjectContainer);
-	
 	var _reactRedux = __webpack_require__(221);
-	
-	var _projects3 = __webpack_require__(249);
-	
-	var _projects4 = _interopRequireDefault(_projects3);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var ProjectContainer = _react2.default.createClass({
 	    displayName: 'ProjectContainer',
 	
-	
-	    componentWillMount: function componentWillMount() {
-	        //axiosAjax.getProjects()
-	    },
-	
 	    render: function render() {
 	        return _react2.default.createElement(_projects2.default, this.props);
 	    }
-	
 	});
 	
 	var stateToProps = function stateToProps(state) {

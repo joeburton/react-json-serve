@@ -53,6 +53,9 @@ export default React.createClass({
     },
 
     setValue: function (e) {
+
+        console.log(this.props);
+
         let fieldValues = this.getValues();
 
     	this.setState({
@@ -63,7 +66,7 @@ export default React.createClass({
             description: fieldValues.description
         });
 
-        // send object to dispatch then store...
+        // send object to dispatch in container component.
         this.props.disptachProjectUpdate(e, {
             id: fieldValues.id,
             name: fieldValues.name,
@@ -75,7 +78,6 @@ export default React.createClass({
 
         // close overlay
         this.closeEditProjectOverlay();
-
     },
 
     handleChange: function (e) {
@@ -88,7 +90,6 @@ export default React.createClass({
             skills: fieldValues.skills,
             description: fieldValues.description
         });
-
     },
 
     getValues: function () {

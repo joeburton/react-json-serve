@@ -11,11 +11,16 @@ const EditProjectContainer = React.createClass({
     }
 });
 
+const stateToProps = function(state) {
+    return {
+        projects: state.projectReducer.projects
+    }
+}
+
 const dispatchToProps = function(dispatch) {
     return {
         disptachProjectUpdate: (e, data) => {
             e.preventDefault();
-            console.log(data);
             store.dispatch({
                 type: 'EDIT_PROJECT',
                 project: {
@@ -31,6 +36,6 @@ const dispatchToProps = function(dispatch) {
     }
 }
 
-export default connect(dispatchToProps)(EditProjectContainer);
+export default connect(stateToProps, dispatchToProps)(EditProjectContainer);
 
 

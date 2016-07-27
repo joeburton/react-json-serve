@@ -1,22 +1,13 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Projects from './projects';
-import EditProjectContainer from './edit-project-container';
 import { connect } from 'react-redux';
-import axiosAjax from 'api/projects';
 
 const ProjectContainer = React.createClass({
-
-    componentWillMount: function() {
-        //axiosAjax.getProjects()
-    },
-
     render: function() {
         return (
             <Projects {...this.props} />
         )
     }
-
 });
 
 const stateToProps = function(state) {
