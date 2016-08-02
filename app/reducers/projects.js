@@ -13,7 +13,10 @@ export default function(state = projectsInitialState, action) {
 		
 		case 'ADD_PROJECT':
 
-			return '';
+			var newState = Object.assign({}, state);
+			newState.projects.push(action.project);
+
+			return newState;
 			
         case 'EDIT_PROJECT':
 			

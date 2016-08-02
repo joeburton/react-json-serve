@@ -33,7 +33,7 @@ const dispatchToProps = function() {
             }
 
             // set edit field values
-            // @TODO get vales from html or pass them as props somehow? Need to research futher.
+            // @TODO get vales from html or pass them as props? Need to research futher.
             fieldsWrapper.setAttribute('data-id', e.target.getAttribute('data-id'));
             name.value = 'www';
             company.value = 'company';
