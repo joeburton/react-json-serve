@@ -18,7 +18,7 @@ var router = jsonServer.router('db.json');
 apiServer.use(router);
 
 gulp.task('serve:api', function (cb) {
-  apiServer.listen(3000);
+  apiServer.listen(5000);
   cb();
 });
 

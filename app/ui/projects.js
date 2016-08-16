@@ -4,7 +4,7 @@ export default React.createClass({
     render: function() {
         return (
             <div className="projects-page">
-                <h3>Projects</h3>
+                <h3>Projects ({this.props.numberProjects})</h3>
                 <ul>
                     {this.props.projects.map((proj, i) => {
                         return (

@@ -12,7 +12,7 @@ export default React.createClass({
     addProject: function (e) {
 
         this.props.disptachAddProject(e, {
-            id: '345345345345',
+            id: new Date().getTime(),
             name: 'Cambridge Assessment',
             company: 'Cambridge Assessment',
             link: 'www.cambridgeassessment.co.uk',

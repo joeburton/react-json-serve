@@ -3,7 +3,7 @@ import store from 'store';
 
 let axiosAjax = {
 	getProjects: function() {
-	    return axios.get('http://localhost:3000/projects').then(function(response) {
+	    return axios.get('http://localhost:3000').then(function(response) {
 	        store.dispatch({
 	            type: 'GET_PROJECTS',
 	            projects: response.data

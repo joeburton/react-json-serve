@@ -27335,7 +27335,7 @@
 	    addProject: function addProject(e) {
 	
 	        this.props.disptachAddProject(e, {
-	            id: '345345345345',
+	            id: new Date().getTime(),
 	            name: 'Cambridge Assessment',
 	            company: 'Cambridge Assessment',
 	            link: 'www.cambridgeassessment.co.uk',
@@ -27444,7 +27444,7 @@
 	
 	var axiosAjax = {
 		getProjects: function getProjects() {
-			return _axios2.default.get('http://localhost:3000/projects').then(function (response) {
+			return _axios2.default.get('http://localhost:3000').then(function (response) {
 				_store2.default.dispatch({
 					type: 'GET_PROJECTS',
 					projects: response.data
@@ -28617,17 +28617,10 @@
 	
 	var _reactRedux = __webpack_require__(222);
 	
-	var _projects = __webpack_require__(253);
-	
-	var _projects2 = _interopRequireDefault(_projects);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var CompaniesContainer = _react2.default.createClass({
 	    displayName: 'CompaniesContainer',
-	    componentWillMount: function componentWillMount() {
-	        // axiosAjax.getProjects()
-	    },
 	    render: function render() {
 	        return _react2.default.createElement(_companies2.default, this.props);
 	    }
@@ -28716,7 +28709,8 @@
 	
 	var stateToProps = function stateToProps(state) {
 	    return {
-	        projects: state.projectReducer.projects
+	        projects: state.projectReducer.projects,
+	        numberProjects: state.projectReducer.projects.length
 	    };
 	};
 	
@@ -28778,7 +28772,9 @@
 	            _react2.default.createElement(
 	                'h3',
 	                null,
-	                'Projects'
+	                'Projects (',
+	                this.props.numberProjects,
+	                ')'
 	            ),
 	            _react2.default.createElement(
 	                'ul',

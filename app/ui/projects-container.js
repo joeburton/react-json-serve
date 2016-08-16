@@ -12,7 +12,8 @@ const ProjectContainer = React.createClass({
 
 const stateToProps = function(state) {
     return {
-        projects: state.projectReducer.projects
+        projects: state.projectReducer.projects,
+        numberProjects: state.projectReducer.projects.length
     }
 }
 
