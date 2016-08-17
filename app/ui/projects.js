@@ -2,7 +2,7 @@ import React from 'react';
 
 export default React.createClass({
     
-    render: function() {
+    render () {
         return (
             <div className="projects-page">
                 <h3>Projects ({this.props.numberProjects})</h3>

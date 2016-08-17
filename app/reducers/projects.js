@@ -20,14 +20,17 @@ export default function(state = projectsInitialState, action) {
 			
         case 'EDIT_PROJECT':
 			
-			// TODO need to match wrapping id and project item id [key]
 			return Object.assign({}, state, {
 				projects: state.projects.map((project, index) => {
 					if (project._id === action.project._id) {
-						console.log(project, action.project);
-						return Object.assign({}, project, action.project)
+						// update the project 
+						project.company = action.project.company;
+						project.projects[action.project.key].description = action.description;
+						project.projects[action.project.key].link = action.project.link;
+						project.projects[action.project.key].project = action.project.project;
+						project.projects[action.project.key].skills = action.project.skills;
 					}
-					return project
+					return project;
 				})
 			})
 

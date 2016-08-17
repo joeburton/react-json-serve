@@ -26,6 +26,7 @@ const dispatchToProps = function(dispatch) {
                 project: {
                     "_id": data.id,
                     "key": data.key,
+                    "company": data.company,
                     "project": data.name,
                     "link": data.link,
                     "skills": data.skills,

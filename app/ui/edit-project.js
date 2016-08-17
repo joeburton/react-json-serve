@@ -2,7 +2,7 @@ import React from 'react';
 
 export default React.createClass({
 	
-	getInitialState: function () {
+	getInitialState () {
         return {
             company: '',
             name: '',
@@ -12,7 +12,7 @@ export default React.createClass({
         };
 	},
 
-    render: function(state) {
+    render (state) {
         return (
             <div className="edit-project hidden">
                 <div className="edit-project-overlay"></div>
@@ -54,7 +54,7 @@ export default React.createClass({
         )
     },
 
-    setValue: function (e) {
+    setValue (e) {
 
         console.log(this.props);
 
@@ -83,7 +83,7 @@ export default React.createClass({
         this.closeEditProjectOverlay();
     },
 
-    handleChange: function (e) {
+    handleChange (e) {
         let fieldValues = this.getValues();
         
         this.setState({
@@ -95,7 +95,7 @@ export default React.createClass({
         });
     },
 
-    getValues: function () {
+    getValues () {
         // wrapping el
         let projectEl = document.getElementsByClassName('edit-fields')[0];
         
@@ -117,7 +117,7 @@ export default React.createClass({
         };      
     },
 
-    closeEditProjectOverlay: function () {
+    closeEditProjectOverlay () {
         let editProjectEle = document.querySelectorAll('.edit-project')[0];
 
         if (!editProjectEle.classList.contains('hidden')) {

@@ -26908,12 +26908,15 @@
 	
 			case 'EDIT_PROJECT':
 	
-				// TODO need to match wrapping id and project item id [key]
 				return Object.assign({}, state, {
 					projects: state.projects.map(function (project, index) {
 						if (project._id === action.project._id) {
-							console.log(project, action.project);
-							return Object.assign({}, project, action.project);
+							// update the project 
+							project.company = action.project.company;
+							project.projects[action.project.key].description = action.description;
+							project.projects[action.project.key].link = action.project.link;
+							project.projects[action.project.key].project = action.project.project;
+							project.projects[action.project.key].skills = action.project.skills;
 						}
 						return project;
 					})
@@ -27105,6 +27108,7 @@
 	                project: {
 	                    "_id": data.id,
 	                    "key": data.key,
+	                    "company": data.company,
 	                    "project": data.name,
 	                    "link": data.link,
 	                    "skills": data.skills,
@@ -27135,8 +27139,6 @@
 	
 	exports.default = _react2.default.createClass({
 	    displayName: 'edit-project',
-	
-	
 	    getInitialState: function getInitialState() {
 	        return {
 	            company: '',
@@ -27146,7 +27148,6 @@
 	            description: ''
 	        };
 	    },
-	
 	    render: function render(state) {
 	        return _react2.default.createElement(
 	            'div',
@@ -27188,7 +27189,6 @@
 	            )
 	        );
 	    },
-	
 	    setValue: function setValue(e) {
 	
 	        console.log(this.props);
@@ -27217,7 +27217,6 @@
 	        // close overlay
 	        this.closeEditProjectOverlay();
 	    },
-	
 	    handleChange: function handleChange(e) {
 	        var fieldValues = this.getValues();
 	
@@ -27229,7 +27228,6 @@
 	            description: fieldValues.description
 	        });
 	    },
-	
 	    getValues: function getValues() {
 	        // wrapping el
 	        var projectEl = document.getElementsByClassName('edit-fields')[0];
@@ -27251,7 +27249,6 @@
 	            description: description.value
 	        };
 	    },
-	
 	    closeEditProjectOverlay: function closeEditProjectOverlay() {
 	        var editProjectEle = document.querySelectorAll('.edit-project')[0];
 	
@@ -27259,7 +27256,6 @@
 	            editProjectEle.classList.add("hidden");
 	        }
 	    }
-	
 	});
 
 /***/ },
@@ -28774,8 +28770,6 @@
 	
 	exports.default = _react2.default.createClass({
 	    displayName: 'projects',
-	
-	
 	    render: function render() {
 	        var _this = this;
 	
@@ -28807,7 +28801,6 @@
 	            )
 	        );
 	    },
-	
 	    renderProjects: function renderProjects(projects, id) {
 	        var _this2 = this;
 	

@@ -2,7 +2,7 @@ import axios from 'axios';
 import store from 'store';
 
 let axiosAjax = {
-	getProjects: function() {
+	getProjects () {
 	    return axios.get('http://localhost:3000').then(function(response) {
 	        store.dispatch({
 	            type: 'GET_PROJECTS',
@@ -13,7 +13,7 @@ let axiosAjax = {
 	        console.error(err);
 	    });
 	},
-	addProject: function(data) {
+	addProject (data) {
 		// return axios.post('/projects', {
 		// 	firstName: 'Fred',
 		// 	lastName: 'Flintstone'
