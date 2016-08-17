@@ -27,7 +27,8 @@ const dispatchToProps = function() {
                 company = editProjectEle.querySelectorAll('.company')[0],
                 link = editProjectEle.querySelectorAll('.link')[0],
                 skills = editProjectEle.querySelectorAll('.skills')[0],
-                description = editProjectEle.querySelectorAll('.description')[0];
+                description = editProjectEle.querySelectorAll('.description')[0],
+                key;
 
             if (editProjectEle.classList.contains('hidden')) {
                 editProjectEle.classList.remove("hidden");    
@@ -35,7 +36,9 @@ const dispatchToProps = function() {
 
             // set edit field values
             // @TODO get vales from html or pass them as props? Need to research futher.
+            // @TODO extend futher as there are now nested projects
             fieldsWrapper.setAttribute('data-id', e.target.getAttribute('data-id'));
+            fieldsWrapper.setAttribute('data-project-key', e.target.getAttribute('data-project-key'));
             name.value = 'www';
             company.value = 'company';
             link.value = 'link';

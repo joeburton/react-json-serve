@@ -25,9 +25,9 @@ const dispatchToProps = function(dispatch) {
                 type: 'EDIT_PROJECT',
                 project: {
                     "_id": data.id,
+                    "key": data.key,
                     "project": data.name,
                     "link": data.link,
-                    "company": data.company,
                     "skills": data.skills,
                     "description": data.description
                 }

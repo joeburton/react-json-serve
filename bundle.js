@@ -26884,47 +26884,49 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-					value: true
+		value: true
 	});
 	
 	exports.default = function () {
-					var state = arguments.length <= 0 || arguments[0] === undefined ? projectsInitialState : arguments[0];
-					var action = arguments[1];
+		var state = arguments.length <= 0 || arguments[0] === undefined ? projectsInitialState : arguments[0];
+		var action = arguments[1];
 	
-					switch (action.type) {
+		switch (action.type) {
 	
-									case 'GET_PROJECTS':
+			case 'GET_PROJECTS':
 	
-													var newState = Object.assign({}, state);
-													newState.projects = action.projects;
-													return newState;
+				var newState = Object.assign({}, state);
+				newState.projects = action.projects;
+				return newState;
 	
-									case 'ADD_PROJECT':
+			case 'ADD_PROJECT':
 	
-													var newState = Object.assign({}, state);
-													newState.projects.push(action.project);
+				var newState = Object.assign({}, state);
+				newState.projects.push(action.project);
 	
-													return newState;
+				return newState;
 	
-									case 'EDIT_PROJECT':
+			case 'EDIT_PROJECT':
 	
-													return Object.assign({}, state, {
-																	projects: state.projects.map(function (project, index) {
-																					if (project._id === action.project._id) {
-																									return Object.assign({}, project, action.project);
-																					}
-																					return project;
-																	})
-													});
+				// TODO need to match wrapping id and project item id [key]
+				return Object.assign({}, state, {
+					projects: state.projects.map(function (project, index) {
+						if (project._id === action.project._id) {
+							console.log(project, action.project);
+							return Object.assign({}, project, action.project);
+						}
+						return project;
+					})
+				});
 	
-									default:
-													return state;
+			default:
+				return state;
 	
-					}
+		}
 	};
 	
 	var projectsInitialState = {
-					projects: []
+		projects: []
 	};
 
 /***/ },
@@ -27102,9 +27104,9 @@
 	                type: 'EDIT_PROJECT',
 	                project: {
 	                    "_id": data.id,
+	                    "key": data.key,
 	                    "project": data.name,
 	                    "link": data.link,
-	                    "company": data.company,
 	                    "skills": data.skills,
 	                    "description": data.description
 	                }
@@ -27137,8 +27139,8 @@
 	
 	    getInitialState: function getInitialState() {
 	        return {
-	            name: '',
 	            company: '',
+	            name: '',
 	            link: '',
 	            skills: '',
 	            description: ''
@@ -27156,13 +27158,18 @@
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'edit-fields', 'data-id': this.props.id },
-	                    _react2.default.createElement('input', { type: 'text',
-	                        className: 'project-name',
-	                        value: this.state.name,
-	                        onChange: this.handleChange }),
+	                    _react2.default.createElement(
+	                        'a',
+	                        { href: '#', className: 'close-icon', onClick: this.closeEditProjectOverlay },
+	                        'x'
+	                    ),
 	                    _react2.default.createElement('input', { type: 'text',
 	                        className: 'company',
 	                        value: this.state.company,
+	                        onChange: this.handleChange }),
+	                    _react2.default.createElement('input', { type: 'text',
+	                        className: 'project-name',
+	                        value: this.state.name,
 	                        onChange: this.handleChange }),
 	                    _react2.default.createElement('input', { type: 'text',
 	                        className: 'link',
@@ -27189,8 +27196,8 @@
 	        var fieldValues = this.getValues();
 	
 	        this.setState({
-	            name: fieldValues.name,
 	            company: fieldValues.company,
+	            name: fieldValues.name,
 	            link: fieldValues.link,
 	            skills: fieldValues.skills,
 	            description: fieldValues.description
@@ -27199,8 +27206,9 @@
 	        // send object to dispatch in container component.
 	        this.props.disptachProjectUpdate(e, {
 	            id: fieldValues.id,
-	            name: fieldValues.name,
+	            key: fieldValues.key,
 	            company: fieldValues.company,
+	            name: fieldValues.name,
 	            link: fieldValues.link,
 	            skills: fieldValues.skills,
 	            description: fieldValues.description
@@ -27214,8 +27222,8 @@
 	        var fieldValues = this.getValues();
 	
 	        this.setState({
-	            name: fieldValues.name,
 	            company: fieldValues.company,
+	            name: fieldValues.name,
 	            link: fieldValues.link,
 	            skills: fieldValues.skills,
 	            description: fieldValues.description
@@ -27227,16 +27235,17 @@
 	        var projectEl = document.getElementsByClassName('edit-fields')[0];
 	
 	        // get elements
-	        var name = projectEl.querySelectorAll('.project-name')[0];
 	        var company = projectEl.querySelectorAll('.company')[0];
+	        var name = projectEl.querySelectorAll('.project-name')[0];
 	        var link = projectEl.querySelectorAll('.link')[0];
 	        var skills = projectEl.querySelectorAll('.skills')[0];
 	        var description = projectEl.querySelectorAll('.description')[0];
 	
 	        return {
 	            id: projectEl.getAttribute('data-id'),
-	            name: name.value,
+	            key: projectEl.getAttribute('data-project-key'),
 	            company: company.value,
+	            name: name.value,
 	            link: link.value,
 	            skills: skills.value,
 	            description: description.value
@@ -28724,7 +28733,8 @@
 	                company = editProjectEle.querySelectorAll('.company')[0],
 	                link = editProjectEle.querySelectorAll('.link')[0],
 	                skills = editProjectEle.querySelectorAll('.skills')[0],
-	                description = editProjectEle.querySelectorAll('.description')[0];
+	                description = editProjectEle.querySelectorAll('.description')[0],
+	                key = void 0;
 	
 	            if (editProjectEle.classList.contains('hidden')) {
 	                editProjectEle.classList.remove("hidden");
@@ -28732,7 +28742,9 @@
 	
 	            // set edit field values
 	            // @TODO get vales from html or pass them as props? Need to research futher.
+	            // @TODO extend futher as there are now nested projects
 	            fieldsWrapper.setAttribute('data-id', e.target.getAttribute('data-id'));
+	            fieldsWrapper.setAttribute('data-project-key', e.target.getAttribute('data-project-key'));
 	            name.value = 'www';
 	            company.value = 'company';
 	            link.value = 'link';
@@ -28763,6 +28775,7 @@
 	exports.default = _react2.default.createClass({
 	    displayName: 'projects',
 	
+	
 	    render: function render() {
 	        var _this = this;
 	
@@ -28786,36 +28799,52 @@
 	                        _react2.default.createElement(
 	                            'span',
 	                            null,
-	                            'Project: ' + proj.project
+	                            'Company: ' + proj.company
 	                        ),
-	                        _react2.default.createElement(
-	                            'span',
-	                            null,
-	                            'Company:' + proj.company
-	                        ),
-	                        _react2.default.createElement(
-	                            'span',
-	                            null,
-	                            'URL: ' + proj.link
-	                        ),
-	                        _react2.default.createElement(
-	                            'span',
-	                            null,
-	                            'Skills: ' + proj.skills
-	                        ),
-	                        _react2.default.createElement(
-	                            'span',
-	                            null,
-	                            'Description: ' + proj.description
-	                        ),
-	                        _react2.default.createElement(
-	                            'a',
-	                            { href: '#', 'data-id': proj._id, 'data-project': proj.project, onClick: _this.props.openEditInput },
-	                            'edit'
-	                        )
+	                        _this.renderProjects(proj.projects, proj._id)
 	                    );
 	                })
 	            )
+	        );
+	    },
+	
+	    renderProjects: function renderProjects(projects, id) {
+	        var _this2 = this;
+	
+	        return _react2.default.createElement(
+	            'ul',
+	            null,
+	            projects.map(function (proj, i) {
+	                return _react2.default.createElement(
+	                    'li',
+	                    { key: i },
+	                    _react2.default.createElement(
+	                        'span',
+	                        null,
+	                        'Project: ' + proj.project
+	                    ),
+	                    _react2.default.createElement(
+	                        'span',
+	                        null,
+	                        'URL: ' + proj.link
+	                    ),
+	                    _react2.default.createElement(
+	                        'span',
+	                        null,
+	                        'Skills: ' + proj.skills
+	                    ),
+	                    _react2.default.createElement(
+	                        'span',
+	                        null,
+	                        'Description: ' + proj.description
+	                    ),
+	                    _react2.default.createElement(
+	                        'a',
+	                        { href: '#', 'data-id': id, 'data-project': proj.project, 'data-project-key': i, onClick: _this2.props.openEditInput },
+	                        'edit'
+	                    )
+	                );
+	            })
 	        );
 	    }
 	});

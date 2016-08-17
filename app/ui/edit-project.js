@@ -4,8 +4,8 @@ export default React.createClass({
 	
 	getInitialState: function () {
         return {
-            name: '',
             company: '',
+            name: '',
             link: '',
             skills: '',
             description: ''
@@ -19,14 +19,16 @@ export default React.createClass({
                 <div className="edit-fields-wrapper">
                     <div className="edit-fields" data-id={this.props.id}>
                         
-                        <input type="text"
-                        className="project-name"
-                        value={this.state.name}
-                        onChange={this.handleChange} />
+                        <a href="#" className="close-icon" onClick={this.closeEditProjectOverlay}>x</a>                        
 
                         <input type="text" 
                         className="company"
                         value={this.state.company}
+                        onChange={this.handleChange} />
+
+                        <input type="text"
+                        className="project-name"
+                        value={this.state.name}
                         onChange={this.handleChange} />
 
                         <input type="text" 
@@ -59,8 +61,8 @@ export default React.createClass({
         let fieldValues = this.getValues();
 
     	this.setState({
-            name: fieldValues.name,
             company: fieldValues.company,
+            name: fieldValues.name,
             link: fieldValues.link,
             skills: fieldValues.skills,
             description: fieldValues.description
@@ -69,8 +71,9 @@ export default React.createClass({
         // send object to dispatch in container component.
         this.props.disptachProjectUpdate(e, {
             id: fieldValues.id,
-            name: fieldValues.name,
+            key: fieldValues.key,
             company: fieldValues.company,
+            name: fieldValues.name,
             link: fieldValues.link,
             skills: fieldValues.skills,
             description: fieldValues.description
@@ -84,8 +87,8 @@ export default React.createClass({
         let fieldValues = this.getValues();
         
         this.setState({
-            name: fieldValues.name,
             company: fieldValues.company,
+            name: fieldValues.name,
             link: fieldValues.link,
             skills: fieldValues.skills,
             description: fieldValues.description
@@ -97,16 +100,17 @@ export default React.createClass({
         let projectEl = document.getElementsByClassName('edit-fields')[0];
         
         // get elements
-        let name = projectEl.querySelectorAll('.project-name')[0];
         let company = projectEl.querySelectorAll('.company')[0];
+        let name = projectEl.querySelectorAll('.project-name')[0];
         let link = projectEl.querySelectorAll('.link')[0];
         let skills = projectEl.querySelectorAll('.skills')[0];
         let description = projectEl.querySelectorAll('.description')[0];
 
         return {
             id: projectEl.getAttribute('data-id'),
-            name: name.value,
+            key: projectEl.getAttribute('data-project-key'),
             company: company.value,
+            name: name.value,
             link: link.value,
             skills: skills.value,
             description: description.value
