@@ -8,11 +8,11 @@ import axiosAjax from 'api/projects';
 
 export default React.createClass({
 
-    componentWillMount: function() {
+    componentWillMount () {
         axiosAjax.getProjects()
     },
 
-    closeEditInput: function () {
+    closeEditInput () {
         let editProjectEle = document.querySelectorAll('.edit-project')[0]
 
         if (!editProjectEle.classList.contains('hidden')) {
@@ -20,7 +20,7 @@ export default React.createClass({
         }
     },
 
-    openAddProject: function (e) {
+    openAddProject (e) {
         e.preventDefault();
         let addProjectEle = document.querySelectorAll('.add-project')[0]
 
@@ -31,10 +31,9 @@ export default React.createClass({
         }
     },
 
-    render: function(state) {
+    render (state) {
         return (
             <div className="app">
-                {/* <h1>Company & Project Directory</h1> */}
                 <ul className="main-nav">
                     <li><Link to="/" onClick={this.closeEditInput}>Home</Link></li>
                     <li><Link to="/companies" onClick={this.closeEditInput}>Companies</Link>(<NumberCompanies />)</li>

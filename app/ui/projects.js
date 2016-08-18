@@ -10,7 +10,7 @@ export default React.createClass({
                     {this.props.projects.map((proj, i) => {
                         return (
                             <li key={i}>
-                            <span>{'Company: ' + proj.company}</span>
+                            <i><strong>{'Company: ' + proj.company}</strong></i>
                             {this.renderProjects(proj.projects, proj._id)}
                             </li>
                         );
@@ -26,10 +26,10 @@ export default React.createClass({
                 {projects.map((proj, i) => {
                     return (
                         <li key={i}>
-                        <span>{'Project: ' + proj.project}</span>
-                        <span>{'URL: ' + proj.link}</span>
-                        <span>{'Skills: ' + proj.skills}</span>
-                        <span>{'Description: ' + proj.description}</span> 
+                        <div>Project: <span className="project-item project"> {proj.project} </span></div>
+                        <div>URL: <span className="project-item link"> {proj.link} </span></div>
+                        <div>Skills: <span className="project-item skills"> {proj.skills} </span></div>
+                        <div>Description: <span className="project-item description"> {proj.description} </span></div>
                         <a href="#" data-id={id} data-project={proj.project} data-project-key={i} onClick={this.props.openEditInput}>edit</a>
                         </li>
                     );

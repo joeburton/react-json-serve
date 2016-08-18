@@ -26901,9 +26901,14 @@
 	
 			case 'ADD_PROJECT':
 	
+				for (var i in state.projects) {
+					if (state.projects[i]["company"] == action.project.company) console.log('company already exists: ', action.project.company);
+					break;
+				}
+	
 				var newState = Object.assign({}, state);
 				newState.projects.push(action.project);
-	
+				console.log(newState);
 				return newState;
 	
 			case 'EDIT_PROJECT':
@@ -26911,12 +26916,15 @@
 				return Object.assign({}, state, {
 					projects: state.projects.map(function (project, index) {
 						if (project._id === action.project._id) {
-							// update the project 
+							// update company name
 							project.company = action.project.company;
-							project.projects[action.project.key].description = action.description;
-							project.projects[action.project.key].link = action.project.link;
-							project.projects[action.project.key].project = action.project.project;
-							project.projects[action.project.key].skills = action.project.skills;
+							// update project values
+							project.projects[action.project.key] = {
+								description: action.project.description,
+								link: action.project.link,
+								project: action.project.project,
+								skills: action.project.skills
+							};
 						}
 						return project;
 					})
@@ -26972,12 +26980,9 @@
 	
 	exports.default = _react2.default.createClass({
 	    displayName: 'app',
-	
-	
 	    componentWillMount: function componentWillMount() {
 	        _projects2.default.getProjects();
 	    },
-	
 	    closeEditInput: function closeEditInput() {
 	        var editProjectEle = document.querySelectorAll('.edit-project')[0];
 	
@@ -26985,7 +26990,6 @@
 	            editProjectEle.classList.add("hidden");
 	        }
 	    },
-	
 	    openAddProject: function openAddProject(e) {
 	        e.preventDefault();
 	        var addProjectEle = document.querySelectorAll('.add-project')[0];
@@ -26996,7 +27000,6 @@
 	            addProjectEle.classList.add("hidden");
 	        }
 	    },
-	
 	    render: function render(state) {
 	        return _react2.default.createElement(
 	            'div',
@@ -27056,7 +27059,6 @@
 	            _react2.default.createElement(_addProjectContainer2.default, null)
 	        );
 	    }
-	
 	});
 
 /***/ },
@@ -27176,15 +27178,19 @@
 	                        className: 'link',
 	                        value: this.state.link,
 	                        onChange: this.handleChange }),
-	                    _react2.default.createElement('input', { type: 'text',
+	                    _react2.default.createElement('textarea', { type: 'textarea',
 	                        className: 'skills',
 	                        value: this.state.skills,
 	                        onChange: this.handleChange }),
-	                    _react2.default.createElement('input', { type: 'text',
+	                    _react2.default.createElement('textarea', { type: 'textarea',
 	                        className: 'description',
 	                        value: this.state.description,
 	                        onChange: this.handleChange }),
-	                    _react2.default.createElement('input', { type: 'button', value: 'GO', onClick: this.setValue })
+	                    _react2.default.createElement(
+	                        'button',
+	                        { name: 'button', onClick: this.setValue },
+	                        'GO'
+	                    )
 	                )
 	            )
 	        );
@@ -27310,7 +27316,7 @@
 /* 250 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -27323,32 +27329,77 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	exports.default = _react2.default.createClass({
-	    displayName: 'add-project',
-	
+	    displayName: "add-project",
 	    render: function render() {
 	        return _react2.default.createElement(
-	            'div',
-	            { className: 'add-project hidden' },
+	            "div",
+	            { className: "add-project hidden" },
+	            _react2.default.createElement("div", { className: "add-project-overlay" }),
 	            _react2.default.createElement(
-	                'div',
-	                { onClick: this.addProject },
-	                'Form'
+	                "div",
+	                { className: "add-fields-wrapper" },
+	                _react2.default.createElement(
+	                    "div",
+	                    { className: "add-fields" },
+	                    _react2.default.createElement(
+	                        "a",
+	                        { href: "#", className: "close-icon", onClick: this.closeOverlay },
+	                        "x"
+	                    ),
+	                    _react2.default.createElement("input", { type: "text",
+	                        className: "company",
+	                        placeholder: "Company name" }),
+	                    _react2.default.createElement("input", { type: "text",
+	                        className: "project-name",
+	                        placeholder: "Project name" }),
+	                    _react2.default.createElement("input", { type: "text",
+	                        className: "link",
+	                        placeholder: "Link" }),
+	                    _react2.default.createElement("textarea", { type: "textarea",
+	                        className: "skills",
+	                        placeholder: "Skills used" }),
+	                    _react2.default.createElement("textarea", { type: "textarea",
+	                        className: "description",
+	                        placeholder: "Description" }),
+	                    _react2.default.createElement(
+	                        "button",
+	                        { name: "button", onClick: this.addProject },
+	                        "GO"
+	                    )
+	                )
 	            )
 	        );
 	    },
-	
 	    addProject: function addProject(e) {
+	        // wrapping el
+	        var projectEl = document.getElementsByClassName('add-fields')[0];
+	
+	        // get elements
+	        var company = projectEl.querySelectorAll('.company')[0],
+	            name = projectEl.querySelectorAll('.project-name')[0],
+	            link = projectEl.querySelectorAll('.link')[0],
+	            skills = projectEl.querySelectorAll('.skills')[0],
+	            description = projectEl.querySelectorAll('.description')[0];
 	
 	        this.props.disptachAddProject(e, {
-	            id: new Date().getTime(),
-	            name: 'Cambridge Assessment',
-	            company: 'Cambridge Assessment',
-	            link: 'www.cambridgeassessment.co.uk',
-	            skills: 'HTML, JavaScript',
-	            description: 'Web Components'
+	            company: company.value,
+	            projects: [{
+	                project: name.value,
+	                link: link.value,
+	                skills: skills.value,
+	                description: description.value
+	            }]
 	        });
-	    }
 	
+	        this.closeOverlay();
+	    },
+	    closeOverlay: function closeOverlay() {
+	        var addProjectEle = document.querySelectorAll('.add-project')[0];
+	
+	        if (!addProjectEle.classList.contains('hidden')) {
+	            addProjectEle.classList.add("hidden");
+	        }
+	    }
 	});
 
 /***/ },
@@ -28584,22 +28635,18 @@
 	
 	exports.default = _react2.default.createClass({
 	  displayName: 'home',
-	
-	
 	  componentDidMount: function componentDidMount() {
 	    window.onhashchange = function () {
 	      console.log('url change');
 	    };
 	  },
-	
 	  render: function render() {
 	    return _react2.default.createElement(
-	      'p',
+	      'b',
 	      null,
-	      'View companies and projects'
+	      'Directory of passed companies and projects'
 	    );
 	  }
-	
 	});
 
 /***/ },
@@ -28722,15 +28769,24 @@
 	var dispatchToProps = function dispatchToProps() {
 	    return {
 	        openEditInput: function openEditInput(e) {
-	            // get edit field elements
+	
+	            // edit field elements
 	            var editProjectEle = document.querySelectorAll('.edit-project')[0],
 	                fieldsWrapper = editProjectEle.querySelectorAll('.edit-fields')[0],
-	                name = editProjectEle.querySelectorAll('.project-name')[0],
+	                project = editProjectEle.querySelectorAll('.project-name')[0],
 	                company = editProjectEle.querySelectorAll('.company')[0],
 	                link = editProjectEle.querySelectorAll('.link')[0],
 	                skills = editProjectEle.querySelectorAll('.skills')[0],
-	                description = editProjectEle.querySelectorAll('.description')[0],
-	                key = void 0;
+	                description = editProjectEle.querySelectorAll('.description')[0];
+	
+	            // project values
+	            var projectContainerEl = e.target.parentElement,
+	
+	            // currentValueCompany = projectContainerEl.getElementsByClassName('company')[0],
+	            currentValueProject = projectContainerEl.getElementsByClassName('project')[0].textContent,
+	                currentValueLink = projectContainerEl.getElementsByClassName('link')[0].textContent,
+	                currentValueSkills = projectContainerEl.getElementsByClassName('skills')[0].textContent,
+	                currentValueDescription = projectContainerEl.getElementsByClassName('description')[0].textContent;
 	
 	            if (editProjectEle.classList.contains('hidden')) {
 	                editProjectEle.classList.remove("hidden");
@@ -28741,11 +28797,12 @@
 	            // @TODO extend futher as there are now nested projects
 	            fieldsWrapper.setAttribute('data-id', e.target.getAttribute('data-id'));
 	            fieldsWrapper.setAttribute('data-project-key', e.target.getAttribute('data-project-key'));
-	            name.value = 'www';
-	            company.value = 'company';
-	            link.value = 'link';
-	            skills.value = 'skills';
-	            description.value = 'description';
+	
+	            company.value = 'company name';
+	            project.value = currentValueProject;
+	            link.value = currentValueLink;
+	            skills.value = currentValueSkills;
+	            description.value = currentValueDescription;
 	        }
 	    };
 	};
@@ -28791,9 +28848,13 @@
 	                        'li',
 	                        { key: i },
 	                        _react2.default.createElement(
-	                            'span',
+	                            'i',
 	                            null,
-	                            'Company: ' + proj.company
+	                            _react2.default.createElement(
+	                                'strong',
+	                                null,
+	                                'Company: ' + proj.company
+	                            )
 	                        ),
 	                        _this.renderProjects(proj.projects, proj._id)
 	                    );
@@ -28812,24 +28873,52 @@
 	                    'li',
 	                    { key: i },
 	                    _react2.default.createElement(
-	                        'span',
+	                        'div',
 	                        null,
-	                        'Project: ' + proj.project
+	                        'Project: ',
+	                        _react2.default.createElement(
+	                            'span',
+	                            { className: 'project-item project' },
+	                            ' ',
+	                            proj.project,
+	                            ' '
+	                        )
 	                    ),
 	                    _react2.default.createElement(
-	                        'span',
+	                        'div',
 	                        null,
-	                        'URL: ' + proj.link
+	                        'URL: ',
+	                        _react2.default.createElement(
+	                            'span',
+	                            { className: 'project-item link' },
+	                            ' ',
+	                            proj.link,
+	                            ' '
+	                        )
 	                    ),
 	                    _react2.default.createElement(
-	                        'span',
+	                        'div',
 	                        null,
-	                        'Skills: ' + proj.skills
+	                        'Skills: ',
+	                        _react2.default.createElement(
+	                            'span',
+	                            { className: 'project-item skills' },
+	                            ' ',
+	                            proj.skills,
+	                            ' '
+	                        )
 	                    ),
 	                    _react2.default.createElement(
-	                        'span',
+	                        'div',
 	                        null,
-	                        'Description: ' + proj.description
+	                        'Description: ',
+	                        _react2.default.createElement(
+	                            'span',
+	                            { className: 'project-item description' },
+	                            ' ',
+	                            proj.description,
+	                            ' '
+	                        )
 	                    ),
 	                    _react2.default.createElement(
 	                        'a',

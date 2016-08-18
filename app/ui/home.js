@@ -2,15 +2,15 @@ import React from 'react';
 
 export default React.createClass({
 
-	componentDidMount: function () {
+	componentDidMount () {
 		window.onhashchange = function() { 
 			console.log('url change');
 		}
 	},
 
-    render: function() {
+    render () {
         return (
-            <p>View companies and projects</p>
+            <b>Directory of passed companies and projects</b>
         )
     }
 

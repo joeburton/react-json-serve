@@ -6,6 +6,7 @@ body {
 .main {
     margin: 0 auto;
     max-width: 600px;
+    padding: 0 20px;
 }
 
 .hidden {
@@ -32,10 +33,24 @@ ul {
 }
 
 .projects-page li span {
-    display: block;
     margin: 0 0 4px 0;
 }
 
+
+/* Generic overlay styles */
+.close-icon {
+    color: #fff;
+    text-align: right;
+    padding: 0;
+    display: inline-block;
+    float: right;
+    font-size: 20px;
+    text-decoration: none;
+    margin-bottom: 10px;
+}
+
+
+/* edit project overlay */
 .edit-project {
     width: 100%;
     height: 100%;
@@ -62,19 +77,97 @@ ul {
 }
 
 .edit-fields {
-    max-width: 150px;
     margin: 0 auto;
     margin-top: 90px;
+    padding: 0 30px;
+    max-width: 420px;
 }
 
-.edit-fields input {
+
+
+
+/* add project overlay */
+.add-project {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.add-project-overlay {
+    background-color: #000;
+    opacity: .7;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.add-fields-wrapper {
+    position: absolute;
+    width: 100%;
+    margin: 0 auto;
+    left: 0;
+    top: 0;
+    height: 100%;
+}
+
+.add-fields {
+    margin: 0 auto;
+    margin-top: 90px;
+    padding: 0 30px;
+    max-width: 420px;
+}
+
+
+.projects-page li .project-item,
+.projects-page li .project-item span {
+    display: inline;
+}
+
+/* Generic form elements */
+textarea {
     display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    font-size: 14px;
+    padding: 10px 0;
+    text-indent: 10px;
+    min-height: 100px;
 }
 
-.close-icon {
-    color: #fff;
-    text-align: right;
-    padding: 10px;
-    display: inline-block;
-    float: right;
+input[type="text"] {
+    display: block;
+    margin-bottom: 10px;
+    width: 100%;
+    font-size: 14px;
+    padding: 10px 0;
+    text-indent: 10px;
 }
+
+button {
+    display: block;
+    margin-bottom: 10px;
+    width: 100%;
+    padding: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

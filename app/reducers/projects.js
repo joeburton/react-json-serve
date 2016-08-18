@@ -13,22 +13,31 @@ export default function(state = projectsInitialState, action) {
 		
 		case 'ADD_PROJECT':
 
+			for (var i in state.projects) {
+			    if (state.projects[i]["company"] == action.project.company)
+					console.log('company already exists: ', action.project.company);
+					break;
+			}
+
 			var newState = Object.assign({}, state);
 			newState.projects.push(action.project);
-
+			console.log(newState);
 			return newState;
 			
         case 'EDIT_PROJECT':
-			
+
 			return Object.assign({}, state, {
 				projects: state.projects.map((project, index) => {
 					if (project._id === action.project._id) {
-						// update the project 
+						// update company name
 						project.company = action.project.company;
-						project.projects[action.project.key].description = action.description;
-						project.projects[action.project.key].link = action.project.link;
-						project.projects[action.project.key].project = action.project.project;
-						project.projects[action.project.key].skills = action.project.skills;
+						// update project values
+						project.projects[action.project.key] = {
+							description: action.project.description,
+							link: action.project.link,
+							project: action.project.project,
+							skills: action.project.skills
+						};
 					}
 					return project;
 				})

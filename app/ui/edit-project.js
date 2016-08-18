@@ -36,18 +36,17 @@ export default React.createClass({
                         value={this.state.link}
                         onChange={this.handleChange} />
 
-                        <input type="text" 
+                        <textarea type="textarea" 
                         className="skills"
                         value={this.state.skills}
                         onChange={this.handleChange} />
 
-                        <input type="text" 
+                        <textarea type="textarea" 
                         className="description"
                         value={this.state.description}
                         onChange={this.handleChange} />
 
-                        <input type="button" value="GO" onClick={this.setValue} />
-
+                        <button name="button" onClick={this.setValue}>GO</button>
                     </div>
                 </div>
             </div>
