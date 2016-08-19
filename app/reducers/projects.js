@@ -13,6 +13,7 @@ export default function(state = projectsInitialState, action) {
 		
 		case 'ADD_PROJECT':
 
+			//@TODO if company already exists add to exisiting projects array
 			for (var i in state.projects) {
 			    if (state.projects[i]["company"] == action.project.company)
 					console.log('company already exists: ', action.project.company);

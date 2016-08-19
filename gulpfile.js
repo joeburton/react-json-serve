@@ -10,27 +10,9 @@ gulp.task('webpack', function() {
     .pipe(gulp.dest('./'));
 });
 
-// API (database) Server
-var apiServer = jsonServer.create();
-apiServer.use(jsonServer.defaults());
-
-var router = jsonServer.router('db.json');
-apiServer.use(router);
-
-gulp.task('serve:api', function (cb) {
-  apiServer.listen(5000);
-  cb();
-});
-
-// Web Server
-gulp.task('serve:web', serve({
-  root: ['.'],
-  port: 8000
-}));
-
 // Watch
 gulp.task('watch', function() {
     gulp.watch('./app/**/*', ['webpack'])
-})
+});
 
-gulp.task('default', ['serve:api', 'serve:web', 'webpack', 'watch']);
+gulp.task('default', ['watch']);
