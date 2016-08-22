@@ -1,7 +1,7 @@
 // Databse connection details
 var mongodb = require('mongodb');
 var MongoClient = mongodb.MongoClient;
-var url = 'mongodb://localhost:32768/projectDirectory';
+var url = 'mongodb://localhost:27017/projectDirectory';
 var dbObj;
 
 // Connect to database
