@@ -16,15 +16,15 @@ var port = 3000;
 
 function setUpServer() {
 	http.createServer(function(req, res) {
-
-		var collection = dbObj.collection('projects');
+		
 		res.writeHead(200, { 'Content-Type': 'application/json', "Access-Control-Allow-Origin":"*" });
-
+		let collection = dbObj.collection('projects');
+	    
 	    collection.find({}).toArray(function(err, projects) {
 	    	res.write(JSON.stringify(projects));
 	   		res.end();
 	    });
 
 	}).listen(port);    	
-	console.log('http://localhost:3000')
+	console.log('http://localhost:3000');
 }
