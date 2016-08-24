@@ -18,7 +18,7 @@ function setUpServer() {
 	http.createServer(function(req, res) {
 		
 		res.writeHead(200, { 'Content-Type': 'application/json', "Access-Control-Allow-Origin":"*" });
-		let collection = dbObj.collection('projects');
+		var collection = dbObj.collection('projects');
 	    
 	    collection.find({}).toArray(function(err, projects) {
 	    	res.write(JSON.stringify(projects));
