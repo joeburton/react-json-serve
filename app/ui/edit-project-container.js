@@ -24,13 +24,13 @@ const dispatchToProps = function(dispatch) {
             store.dispatch({
                 type: 'EDIT_PROJECT',
                 project: {
-                    "_id": data.id,
-                    "key": data.key,
-                    "company": data.company,
-                    "project": data.name,
-                    "link": data.link,
-                    "skills": data.skills,
-                    "description": data.description
+                    '_id': data.id,
+                    'key': data.key,
+                    'company': data.company,
+                    'project': data.name,
+                    'link': data.link,
+                    'skills': data.skills,
+                    'description': data.description
                 }
             });
         }

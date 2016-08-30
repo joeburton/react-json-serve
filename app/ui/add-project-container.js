@@ -2,6 +2,7 @@ import React from 'react';
 import AddProject from './add-project';
 import { connect } from 'react-redux';
 import store from 'store';
+import axiosAjax from 'api/projects';
 
 const AddProjectContainer = React.createClass({
     render: function() {
@@ -11,16 +12,24 @@ const AddProjectContainer = React.createClass({
     }
 });
 
-const dispatchToProps = function() {
+const stateToProps = function(state) {
     return {
-        disptachAddProject: (e, data) => {
+        state: state.projectReducer.projects
+    }
+}
+
+
+const dispatchToProps = function(state) {
+    return {
+        disptachAddProject (e, data) {
             e.preventDefault();
-            store.dispatch({
-                type: 'ADD_PROJECT',
-                project: data
-            });
+            axiosAjax.addProject(data, this.state); 
+            // store.dispatch({
+            //     type: 'ADD_PROJECT',
+            //     project: data
+            // });
         }
     }
 }
 
-export default connect(dispatchToProps)(AddProjectContainer)
+export default connect(stateToProps, dispatchToProps)(AddProjectContainer)
