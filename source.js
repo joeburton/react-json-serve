@@ -19,6 +19,7 @@ var port = 3000;
 function setUpServer() {
 	http.createServer(function(req, res) {
 		
+<<<<<<< HEAD
 		if (req.method == 'GET') {
 			
 			console.log('GET');
@@ -51,6 +52,15 @@ function setUpServer() {
 			res.end();
 
 		}
+=======
+		res.writeHead(200, { 'Content-Type': 'application/json', "Access-Control-Allow-Origin":"*" });
+		var collection = dbObj.collection('projects');
+	    
+	    collection.find({}).toArray(function(err, projects) {
+	    	res.write(JSON.stringify(projects));
+	   		res.end();
+	    });
+>>>>>>> c05722295375908c7558601698703e1a217fe7bc
 
 	}).listen(port);    	
 	console.log('http://localhost:3000');
